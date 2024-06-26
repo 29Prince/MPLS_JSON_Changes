@@ -1,0 +1,4154 @@
+{
+	"parameters": {
+		"platform": {
+			"spitfire": {
+				"mpls_static_v6": true,
+				"mpls_static_vrf": true,
+				"bvi": false
+			},
+			"ASR": {
+				"mpls_static_v6": false,
+				"mpls_static_vrf": true,
+				"bvi": true
+			},
+			"NCS560": {
+				"mpls_static_v6": false,
+				"mpls_static_vrf": true,
+				"bvi": true
+			},
+			"NCS5": {
+				"mpls_static_v6": true,
+				"mpls_static_vrf": true,
+				"bvi": true
+			},
+			"N5": {
+				"mpls_static_v6": true,
+				"mpls_static_vrf": true,
+				"bvi": true
+			}
+		}
+	},
+	"Topology": {
+		"Nodes": {
+			"PE1": {
+				"alias": "R1"
+			},
+			"P": {
+				"alias": "R2"
+			},
+			"PE2": {
+				"alias": "R3"
+			},
+			"TGN": {
+				"alias": "TGEN"
+			}
+		},
+		"Links": {
+			"PE1_P_intf1": {
+				"devices": [
+					"PE1",
+					"P"
+				],
+				"alias": "R1_R2_1"
+			},
+			"PE1_P_intf2": {
+				"devices": [
+					"PE1",
+					"P"
+				],
+				"alias": "R1_R2_2"
+			},
+			"PE1_P_intf3": {
+				"devices": [
+					"PE1",
+					"P"
+				],
+				"alias": "R1_R2_3"
+			},
+			"PE1_P_intf4": {
+				"devices": [
+					"PE1",
+					"P"
+				],
+				"alias": "R1_R2_4"
+			},
+			"PE1_P_intf5": {
+				"devices": [
+					"PE1",
+					"P"
+				],
+				"alias": "R1_R2_5"
+			},
+			"P_PE2_intf1": {
+				"devices": [
+					"P",
+					"PE2"
+				],
+				"alias": "R2_R3_1"
+			},
+			"P_PE2_intf2": {
+				"devices": [
+					"P",
+					"PE2"
+				],
+				"alias": "R2_R3_2"
+			},
+			"PE1_TGN_intf1": {
+				"devices": [
+					"PE1",
+					"TGN"
+				],
+				"alias": "R1_T1_1"
+			},
+			"PE1_TGN_intf2": {
+				"devices": [
+					"PE1",
+					"TGN"
+				],
+				"alias": "R1_T1_2"
+			},
+			"PE1_TGN_intf3": {
+				"devices": [
+					"PE1",
+					"TGN"
+				],
+				"alias": "R1_T1_3"
+			},
+			"PE2_TGN_intf1": {
+				"devices": [
+					"PE1",
+					"TGN"
+				],
+				"alias": "R3_T1_1"
+			},
+			"PE2_TGN_intf2": {
+				"devices": [
+					"PE1",
+					"TGN"
+				],
+				"alias": "R3_T1_2"
+			},
+			"P_TGN_intf1": {
+				"devices": [
+					"P",
+					"TGN"
+				],
+				"alias": "R2_T1_1"
+			},
+			"P_TGN_intf2": {
+				"devices": [
+					"P",
+					"TGN"
+				],
+				"alias": "R2_T1_2"
+			}
+		}
+	},
+	"TestArguments": {
+		"base_configuration": {
+			"traffic_tolerance_percent": 0.05,
+			"trigger_traffic_tolerance_percent": 0.5,
+			"intf_flap_iterations": 1,
+			"trigger_list": [
+				"rpfo",
+				"active_rp_reload",
+				"standby_rp_reload",
+				"reload"
+			],
+			"tgn_default_cfg": "tgn_config_file",
+			"traffic_rate": 100,
+			"traffic_rate_calc": 1,
+			"churn_iterations": 1,
+			"lc_reload_sleep_time": 120,
+			"fc_reload_sleep_time": 90,
+			"interface_creation_time": 60,
+			"expected_process_blocked_list": [
+				"lpts_fm",
+				"sh_proc_ng_blocked"
+			],
+			"scale_config_via_file": "False",
+			"per_prefix_vrf": "False",
+			"mgbl": {
+				"model_type": "oc",
+				"tls_list": [
+					"static_lc_oir",
+					"bundle_member_flap",
+					"interface_flap_mgbl",
+					"bundle_member_add_remove",
+					"continuous_intf_flap_mgbl",
+					"mgbl_unconfig_with_rollback",
+					"proc_crash_mpls_lsd",
+					"proc_crash_mpls_static",
+					"proc_restart_mpls_io",
+					"proc_restart_mpls_lsd",
+					"proc_restart_mpls_static",
+					"system_reload_rpfo",
+					"system_reload_reload",
+					"system_reload_active_rp_reload",
+					"system_reload_standby_rp_reload",
+					"interface_replace",
+					"mgbl_multipath_lsps_verify"
+				],
+				"configuration_protocol": [
+					"gnmi",
+					"netconf"
+				],
+				"verification_protocol": [
+					"gnmi",
+					"netconf"
+				],
+				"verification_operation": [
+					"get",
+					"subscribe"
+				],
+				"gnmi_port": 57400,
+				"netconf_port": 830
+			},
+			"mode": "cli",
+			"exec_mode": "cli",
+			"sim": false,
+			"ssh_file_to_update": "/var/opt/cisco/ciscossh/sshd_config_default",
+			"ssh_debug_list": [
+				"SyslogFacility AUTH",
+				"LogLevel DEBUG3"
+			],
+			"ssh_debug_process_name": "sshd_service_default",
+			"CPU_list": [
+				50,
+				60
+			]
+		},
+		"traffic_generator_configuration": {
+			"static_config": {
+				"tgn_config_file": {
+					"SPIRENT": "mpls_static_spirent_cfg.xml",
+					"IXIA": "mpls_static_spirent_cfg_new.ixncfg"
+				},
+				"tgn_config_file_lsp": {
+					"SPIRENT": "mpls_static_spirent_cfg_lsp_sim.xml",
+					"IXIA": "mpls_static_spirent_cfg_new.ixncfg"
+				}
+			}
+		},
+		"testcase_configuration": {
+			"test_process_restart": {
+				"repeat_count": 1,
+				"process_list": [
+					"mpls_static",
+					"ospfv3",
+					"ospf",
+					"isis",
+					"mpls_lsd",
+					"ifmgr",
+					"ipv4_ma",
+					"ipv4_io",
+					"mpls_io"
+				]
+			},
+			"test_process_crash": {
+				"repeat_count": 1,
+				"process_list": [
+					"mpls_static",
+					"ospfv3",
+					"ospf",
+					"isis",
+					"mpls_lsd",
+					"ipv4_ma",
+					"ipv4_io"
+				]
+			},
+			"skip_errors": [
+				"Failed authentication attempt by user",
+				"Error disabling due to reason: bundle-down",
+				"requested a restart of process pam_manager",
+				"DLRSC event:New Node or DLRSC migrated",
+				"Communications failure with Cisco licensing cloud",
+				"sysmgr_control.*User.*requested.*process.*at",
+				"NSR_SYNC_PEER_OP_FAILED"
+			]
+		},
+		"interface_configuration": {
+			"Loopback0.PE1": {
+				"ipv4_address": "99.2.1.1",
+				"ipv4_mask": "255.255.255.255",
+				"ipv4_prefix_length": 32,
+				"ipv6_address": "99:2:1::1",
+				"ipv6_prefix_length": 128,
+				"logical_name": "L_RID",
+				"group": [
+					"PE1_loopbacks",
+					"PE1_loopback 0"
+				]
+			},
+			"Loopback0.P": {
+				"ipv4_address": "99.3.1.1",
+				"ipv4_mask": "255.255.255.255",
+				"ipv4_prefix_length": 32,
+				"ipv6_address": "99:3:1::1",
+				"logical_name": "L_RID",
+				"ipv6_prefix_length": 128,
+				"group": [
+					"P_loopbacks",
+					"P_loopback 0"
+				]
+			},
+			"Loopback0.PE2": {
+				"ipv4_address": "99.4.1.1",
+				"ipv4_mask": "255.255.255.255",
+				"ipv4_prefix_length": 32,
+				"ipv6_address": "99:4:1::1",
+				"ipv6_prefix_length": 128,
+				"logical_name": "L_RID",
+				"group": [
+					"PE2_loopbacks",
+					"PE2_loopback 0"
+				]
+			},
+			"Loopback${id=range(1,5)}.PE1": {
+				"ipv4_address": "112.${id}.1.1",
+				"ipv4_mask": "255.255.255.255",
+				"ipv4_prefix_length": 32,
+				"ipv6_prefix_length": 128,
+				"ipv6_address": {
+					"start": "112:1:1::1",
+					"step": 4294967296
+				},
+				"group": [
+					"PE1_loopbacks",
+					"PE1_loopback ${id}"
+				]
+			},
+			"Loopback${id=range(1,3)}.P": {
+				"ipv4_address": "113.${id}.1.1",
+				"ipv4_mask": "255.255.255.255",
+				"ipv4_prefix_length": 32,
+				"ipv6_prefix_length": 128,
+				"ipv6_address": {
+					"start": "113:1:1::1",
+					"step": 4294967296
+				},
+				"group": [
+					"P_loopbacks",
+					"P_loopback ${id}"
+				]
+			},
+			"Loopback${id=range(1,5)}.PE2": {
+				"ipv4_address": "114.${id}.1.1",
+				"ipv4_mask": "255.255.255.255",
+				"ipv4_prefix_length": 32,
+				"ipv6_prefix_length": 128,
+				"ipv6_address": {
+					"start": "114:1:1::1",
+					"step": 4294967296
+				},
+				"group": [
+					"PE2_loopbacks",
+					"PE2_loopback ${id}"
+				]
+			},
+			"Loopback${id=range(5,8)}.PE1": {
+				"ipv4_address": "112.${id}.1.1",
+				"ipv4_mask": "255.255.255.255",
+				"ipv4_prefix_length": 32,
+				"ipv6_prefix_length": 128,
+				"ipv6_address": {
+					"start": "112:1:1::5:0:1",
+					"step": 4294967296
+				},
+				"vrf": "${id}",
+				"group": [
+					"PE1_loopbacks",
+					"PE1_loopback ${id}"
+				]
+			},
+			"Loopback${id=range(5,8)}.P": {
+				"ipv4_address": "113.${id}.1.1",
+				"ipv4_mask": "255.255.255.255",
+				"ipv4_prefix_length": 32,
+				"ipv6_prefix_length": 128,
+				"ipv6_address": {
+					"start": "113:1:1::5:0:1",
+					"step": 4294967296
+				},
+				"vrf": "${id}",
+				"group": [
+					"P_loopbacks",
+					"P_loopback ${id}"
+				]
+			},
+			"Loopback${id=range(5,8)}.PE2": {
+				"ipv4_address": "114.${id}.1.1",
+				"ipv4_mask": "255.255.255.255",
+				"ipv4_prefix_length": 32,
+				"ipv6_prefix_length": 128,
+				"ipv6_address": {
+					"start": "114:1:1::5:0:1",
+					"step": 4294967296
+				},
+				"vrf": "${id}",
+				"group": [
+					"PE2_loopbacks",
+					"PE2_loopback ${id}"
+				]
+			},
+			"BVI10.PE1": {
+				"name": "BVI10",
+				"id": 10,
+				"mtu": 9200,
+				"ipv4_address": "16.3.1.1",
+				"ipv4_mask": "255.255.255.0",
+				"ipv6_address": "16:3::1:1:1",
+				"ipv6_prefix_length": "112",
+				"group": [
+					"bvi_ospf_PE1"
+				]
+			},
+			"BVI20.PE1": {
+				"name": "BVI20",
+				"id": 20,
+				"mtu": 9200,
+				"ipv4_address": "16.2.10.1",
+				"ipv4_mask": "255.255.255.0",
+				"ipv6_address": "16:2::10:1:1",
+				"ipv6_prefix_length": "112",
+				"group": [
+					"bvi_isis_PE1"
+				]
+			},
+			"BVI30.PE1": {
+				"name": "BVI30",
+				"id": 30,
+				"mtu": 9200,
+				"ipv4_address": "16.1.10.1",
+				"ipv4_mask": "255.255.255.0",
+				"ipv6_address": "16:1::10:1:1",
+				"ipv6_prefix_length": "112",
+				"group": [
+					"bvi_ospf_PE1"
+				]
+			},
+			"BVI40.PE1": {
+				"name": "BVI40",
+				"id": 40,
+				"mtu": 9200,
+				"ipv4_address": "16.2.7.1",
+				"ipv4_mask": "255.255.255.0",
+				"ipv6_address": "16:2::7:1:1",
+				"ipv6_prefix_length": "112",
+				"vrf": "7",
+				"group": [
+					"PE1_access1_vrf_intfs",
+					"PE1_ospf_vrf_intfs",
+					"PE1_access1_vrf_intfs_7"
+				]
+			},
+			"Bundle-Ether1.PE1": {
+				"id": 1,
+				"members": [
+					"PE1_P_intf1.PE1",
+					"PE1_P_intf3.PE1"
+				],
+				"state": "noshut",
+				"logical_name": "PE1_P_1",
+				"port_activity": "on",
+				"ipv4_address": "11.1.1.1",
+				"ipv4_mask": "255.255.255.0",
+				"ipv6_address": "11:1::1:1:1",
+				"ipv4_prefix_length": 24,
+				"ipv6_prefix_length": "112",
+				"mtu": 9200,
+				"vlans": {
+					"${id=range(1,4)}": {
+						"id": "${id}",
+						"group": [
+							"PE1_P_core_1",
+							"PE1_ospf_intfs",
+							"PE1_core_intfs"
+						],
+						"ipv4_address": {
+							"start": "11.1.2.1",
+							"step": "256"
+						},
+						"ipv4_mask": "255.255.255.0",
+						"ipv6_address": {
+							"start": "11:1::2:1:1",
+							"step": "4294967296"
+						},
+						"ipv6_prefix_length": "112",
+						"encapsulation": {
+							"dot1q": "${id}"
+						}
+					},
+					"${id=range(5,8)}": {
+						"id": "${id}",
+						"ipv4_address": {
+							"start": "11.1.5.1",
+							"step": "256"
+						},
+						"ipv4_mask": "255.255.255.0",
+						"ipv6_address": {
+							"start": "11:1::5:1:1",
+							"step": "4294967296"
+						},
+						"ipv6_prefix_length": "112",
+						"group": [
+							"PE1_P_core_1_vrf",
+							"PE1_ospf_vrf_intfs",
+							"PE1_P_core_1_vrf_${id}"
+						],
+						"encapsulation": {
+							"dot1q": "${id}"
+						},
+						"vrf": "${id}"
+					}
+				},
+				"group": [
+					"PE1_P_core_1",
+					"PE1_ospf_intfs",
+					"PE1_core_intfs"
+				]
+			},
+			"Bundle-Ether1.P": {
+				"id": 1,
+				"members": [
+					"PE1_P_intf1.P",
+					"PE1_P_intf3.P"
+				],
+				"state": "noshut",
+				"logical_name": "P_PE1_1",
+				"port_activity": "on",
+				"ipv4_address": "11.1.1.2",
+				"ipv4_mask": "255.255.255.0",
+				"ipv4_prefix_length": 24,
+				"ipv6_address": "11:1::1:1:2",
+				"ipv6_prefix_length": "112",
+				"mtu": 9200,
+				"vlans": {
+					"${id=range(1,4)}": {
+						"id": "${id}",
+						"group": [
+							"P_PE1_core_1",
+							"P_ospf_intfs",
+							"P_core_intfs"
+						],
+						"ipv4_address": {
+							"start": "11.1.2.2",
+							"step": "256"
+						},
+						"ipv4_mask": "255.255.255.0",
+						"ipv6_address": {
+							"start": "11:1::2:1:2",
+							"step": "4294967296"
+						},
+						"ipv6_prefix_length": "112",
+						"encapsulation": {
+							"dot1q": "${id}"
+						}
+					},
+					"${id=range(5,8)}": {
+						"id": "${id}",
+						"ipv4_address": {
+							"start": "11.1.5.2",
+							"step": 256
+						},
+						"ipv4_mask": "255.255.255.0",
+						"ipv6_address": {
+							"start": "11:1::5:1:2",
+							"step": "4294967296"
+						},
+						"ipv6_prefix_length": "112",
+						"group": [
+							"P_PE1_core_1_vrf",
+							"P_ospf_vrf_intfs",
+							"P_PE1_core_1_vrf_${id}"
+						],
+						"encapsulation": {
+							"dot1q": "${id}"
+						},
+						"vrf": "${id}"
+					}
+				},
+				"group": [
+					"P_PE1_core_1",
+					"P_ospf_intfs",
+					"P_core_intfs"
+				]
+			},
+			"Bundle-Ether2.PE1": {
+				"id": 2,
+				"members": [
+					"PE1_P_intf2.PE1"
+				],
+				"state": "noshut",
+				"logical_name": "PE1_P_2",
+				"port_activity": "on",
+				"ipv4_address": "11.2.1.1",
+				"ipv4_mask": "255.255.255.0",
+				"ipv4_prefix_length": 24,
+				"ipv6_address": "11:2::1:1:1",
+				"ipv6_prefix_length": "112",
+				"mtu": 9200,
+				"group": [
+					"PE1_P_core_2",
+					"PE1_isis_intfs",
+					"PE1_core_intfs"
+				],
+				"vlans": {
+					"${id=range(1,4)}": {
+						"id": "${id}",
+						"group": [
+							"PE1_P_core_2",
+							"PE1_isis_intfs",
+							"PE1_core_intfs"
+						],
+						"ipv4_address": {
+							"start": "11.2.2.1",
+							"step": "256"
+						},
+						"ipv4_mask": "255.255.255.0",
+						"ipv6_address": {
+							"start": "11:2::2:1:1",
+							"step": "4294967296"
+						},
+						"ipv6_prefix_length": "112",
+						"encapsulation": {
+							"dot1q": "${id}"
+						}
+					},
+					"${id=range(5,8)}": {
+						"id": "${id}",
+						"ipv4_address": {
+							"start": "11.2.5.1",
+							"step": "256"
+						},
+						"ipv4_mask": "255.255.255.0",
+						"ipv6_address": {
+							"start": "11:2::5:1:1",
+							"step": "4294967296"
+						},
+						"ipv6_prefix_length": "112",
+						"group": [
+							"PE1_P_core_2_vrf",
+							"PE1_isis_vrf_intfs"
+						],
+						"encapsulation": {
+							"dot1q": "${id}"
+						},
+						"vrf": "${id}"
+					}
+				}
+			},
+			"Bundle-Ether2.P": {
+				"id": 2,
+				"members": [
+					"PE1_P_intf2.P"
+				],
+				"state": "noshut",
+				"logical_name": "P_PE1_2",
+				"port_activity": "on",
+				"ipv4_address": "11.2.1.2",
+				"ipv4_mask": "255.255.255.0",
+				"ipv4_prefix_length": 24,
+				"ipv6_address": "11:2::1:1:2",
+				"ipv6_prefix_length": "112",
+				"mtu": 9200,
+				"group": [
+					"P_PE1_core_2",
+					"P_isis_intfs",
+					"P_core_intfs"
+				],
+				"vlans": {
+					"${id=range(1,4)}": {
+						"id": "${id}",
+						"group": [
+							"P_PE1_core_2",
+							"P_isis_intfs",
+							"P_core_intfs"
+						],
+						"ipv4_address": {
+							"start": "11.2.2.2",
+							"step": "256"
+						},
+						"ipv4_mask": "255.255.255.0",
+						"ipv6_address": {
+							"start": "11:2::2:1:2",
+							"step": "4294967296"
+						},
+						"ipv6_prefix_length": "112",
+						"encapsulation": {
+							"dot1q": "${id}"
+						}
+					},
+					"${id=range(5,8)}": {
+						"id": "${id}",
+						"ipv4_address": {
+							"start": "11.2.5.2",
+							"step": "256"
+						},
+						"ipv4_mask": "255.255.255.0",
+						"ipv6_address": {
+							"start": "11:2::5:1:2",
+							"step": "4294967296"
+						},
+						"ipv6_prefix_length": "112",
+						"group": [
+							"P_PE1_core_2_vrf",
+							"P_isis_vrf_intfs"
+						],
+						"encapsulation": {
+							"dot1q": "${id}"
+						},
+						"vrf": "${id}"
+					}
+				}
+			},
+			"Bundle-Ether3.PE1": {
+				"id": 3,
+				"members": [
+					"PE1_TGN_intf1.PE1"
+				],
+				"state": "noshut",
+				"logical_name": "PE1_TGN_1",
+				"port_activity": "on",
+				"ipv4_address": "16.1.1.1",
+				"ipv4_mask": "255.255.255.0",
+				"ipv4_prefix_length": 24,
+				"ipv6_address": "16:1::1:1:1",
+				"ipv6_prefix_length": "112",
+				"mtu": 9200,
+				"vlans": {
+					"${id=range(1,4)}": {
+						"id": "${id}",
+						"group": [
+							"PE1_access1_intfs",
+							"PE1_ospf_intfs",
+							"PE1_isis_intfs"
+						],
+						"ipv4_address": {
+							"start": "16.1.2.1",
+							"step": "256"
+						},
+						"ipv4_mask": "255.255.255.0",
+						"ipv6_address": {
+							"start": "16:1::2:1:1",
+							"step": "4294967296"
+						},
+						"ipv6_prefix_length": "112",
+						"encapsulation": {
+							"dot1q": "${id}"
+						}
+					},
+					"${id=range(5,8)}": {
+						"id": "${id}",
+						"ipv4_address": {
+							"start": "16.1.5.1",
+							"step": "256"
+						},
+						"ipv4_mask": "255.255.255.0",
+						"ipv6_address": {
+							"start": "16:1::5:1:1",
+							"step": "4294967296"
+						},
+						"ipv6_prefix_length": "112",
+						"group": [
+							"PE1_access1_vrf_intfs",
+							"PE1_ospf_vrf_intfs",
+							"PE1_access1_vrf_intfs_${id}"
+						],
+						"encapsulation": {
+							"dot1q": "${id}"
+						},
+						"vrf": "${id}"
+					},
+					"${id=range(11,19)}": {
+						"l2": true,
+						"state": "noshut",
+						"encapsulation": {
+							"dot1q": "${id}"
+						},
+						"rewrite_ingress_tag": {
+							"pop": "1"
+						},
+						"group": [
+							"l2_intf_PE1",
+							"BVI30_l2_intf_PE1"
+						]
+					}
+				},
+				"group": [
+					"PE1_access1_intfs",
+					"PE1_ospf_intfs",
+					"PE1_isis_intfs"
+				]
+			},
+			"Bundle-Ether3.TGN": {
+				"id": 3,
+				"members": [
+					"PE1_TGN_intf1.TGN"
+				],
+				"state": "noshut",
+				"logical_name": "TGN_PE1_1",
+				"port_activity": "on",
+				"ipv4_address": "16.1.1.2",
+				"ipv4_mask": "255.255.255.0",
+				"ipv4_prefix_length": 24,
+				"ipv6_address": "16:1::1:1:2",
+				"ipv6_prefix_length": "112",
+				"mtu": 9200,
+				"group": [
+					"TGN_PE1_access1_intfs"
+				],
+				"vlans": {
+					"${id=range(1,4)}": {
+						"id": "${id}",
+						"group": [
+							"TGN_PE1_access1_intfs"
+						],
+						"ipv4_address": {
+							"start": "16.1.2.2",
+							"step": "256"
+						},
+						"ipv4_mask": "255.255.255.0",
+						"ipv6_address": {
+							"start": "16:1::2:1:2",
+							"step": "4294967296"
+						},
+						"ipv6_prefix_length": "112",
+						"encapsulation": {
+							"dot1q": "${id}"
+						}
+					},
+					"${id=range(5, 7)}": {
+						"id": "${id}",
+						"ipv4_address": {
+							"start": "16.1.5.2",
+							"step": "256"
+						},
+						"ipv4_mask": "255.255.255.0",
+						"ipv6_address": {
+							"start": "16:1::5:1:2",
+							"step": "4294967296"
+						},
+						"ipv6_prefix_length": "112",
+						"group": [
+							"${id}"
+						],
+						"encapsulation": {
+							"dot1q": "${id}"
+						},
+						"vrf": "${id}"
+					}
+				}
+			},
+			"PE1_TGN_intf2.PE1": {
+				"state": "noshut",
+				"logical_name": "PE1_TGN_2",
+				"port_activity": "on",
+				"ipv4_address": "16.2.1.1",
+				"ipv4_mask": "255.255.255.0",
+				"ipv4_prefix_length": 24,
+				"ipv6_address": "16:2::1:1:1",
+				"ipv6_prefix_length": "112",
+				"mtu": 9200,
+				"vlans": {
+					"${id=range(1,3)}": {
+						"id": "${id}",
+						"group": [
+							"PE1_access2_intfs",
+							"PE1_isis_intfs",
+							"PE1_TGN_int2_vlan_${id}"
+						],
+						"ipv4_address": {
+							"start": "16.2.2.2",
+							"step": "256"
+						},
+						"ipv4_mask": "255.255.255.0",
+						"ipv6_address": {
+							"start": "16:2::2:1:2",
+							"step": "4294967296"
+						},
+						"ipv6_prefix_length": "112",
+						"encapsulation": {
+							"dot1q": "${id}"
+						}
+					},
+					"${id=range(7,8)}": {
+						"l2": true,
+						"state": "noshut",
+						"encapsulation": {
+							"dot1q": "${id}"
+						},
+						"rewrite_ingress_tag": {
+							"pop": "1"
+						},
+						"group": [
+							"l2_intf_PE1",
+							"BVI40_l2_intf_PE1"
+						]
+					},
+					"${id=range(11,19)}": {
+						"l2": true,
+						"state": "noshut",
+						"encapsulation": {
+							"dot1q": "${id}"
+						},
+						"rewrite_ingress_tag": {
+							"pop": "1"
+						},
+						"group": [
+							"l2_intf_PE1",
+							"BVI20_l2_intf_PE1"
+						]
+					}
+				},
+				"group": [
+					"PE1_access2_intfs",
+					"PE1_isis_intfs"
+				]
+			},
+			"PE1_TGN_intf2.TGN": {
+				"state": "noshut",
+				"logical_name": "TGN1_PE1_2",
+				"port_activity": "on",
+				"ipv4_address": "16.2.1.2",
+				"ipv4_mask": "255.255.255.0",
+				"ipv4_prefix_length": 24,
+				"ipv6_address": "16:2::1:1:2",
+				"ipv6_prefix_length": "112",
+				"group": [
+					"TGN_PE1_access2_intfs"
+				],
+				"mtu": 9200,
+				"vlans": {
+					"${id=range(1,3)}": {
+						"id": "${id}",
+						"group": [
+							"TGN_PE1_access2_intfs"
+						],
+						"ipv4_address": {
+							"start": "16.2.2.1",
+							"step": "256"
+						},
+						"ipv4_mask": "255.255.255.0",
+						"ipv6_address": {
+							"start": "16:2::2:1:1",
+							"step": "4294967296"
+						},
+						"ipv6_prefix_length": "112",
+						"encapsulation": {
+							"dot1q": "${id}"
+						}
+					}
+				}
+			},
+			"PE1_TGN_intf3.PE1": {
+				"state": "noshut",
+				"l2": true,
+				"group": [
+					"BVI10_l2_intf_PE1"
+				]
+			},
+			"PE1_TGN_intf3.TGN": {
+				"state": "noshut",
+				"logical_name": "TGN1_PE1_3",
+				"port_activity": "on",
+				"ipv4_address": "16.3.1.2",
+				"ipv4_mask": "255.255.255.0",
+				"ipv4_prefix_length": 24,
+				"ipv6_address": "16:3::1:1:2",
+				"ipv6_prefix_length": "112",
+				"mtu": 9200
+			},
+			"PE1_P_intf4.PE1": {
+				"state": "noshut",
+				"logical_name": "PE1_P_3",
+				"port_activity": "active",
+				"ipv4_address": "11.3.1.1",
+				"ipv4_mask": "255.255.255.0",
+				"ipv6_address": "11:3::1:1:1",
+				"ipv4_prefix_length": 24,
+				"ipv6_prefix_length": "112",
+				"mtu": 9200,
+				"vlans": {
+					"${id=range(1,10)}": {
+						"id": "${id}",
+						"group": [
+							"PE1_P_core_1",
+							"PE1_ospf_intfs",
+							"PE1_core_intfs"
+						],
+						"ipv4_address": {
+							"start": "11.3.2.1",
+							"step": "256"
+						},
+						"ipv4_mask": "255.255.255.0",
+						"ipv6_address": {
+							"start": "11:3::2:1:1",
+							"step": "4294967296"
+						},
+						"ipv6_prefix_length": "112",
+						"encapsulation": {
+							"dot1q": "${id}"
+						}
+					}
+				},
+				"group": [
+					"PE1_P_core_1",
+					"PE1_ospf_intfs",
+					"PE1_core_intfs"
+				]
+			},
+			"PE1_P_intf4.P": {
+				"state": "noshut",
+				"logical_name": "P_PE1_3",
+				"port_activity": "active",
+				"ipv4_address": "11.3.1.2",
+				"ipv4_mask": "255.255.255.0",
+				"ipv4_prefix_length": 24,
+				"ipv6_address": "11:3::1:1:2",
+				"ipv6_prefix_length": "112",
+				"mtu": 9200,
+				"vlans": {
+					"${id=range(1,10)}": {
+						"id": "${id}",
+						"group": [
+							"P_PE1_core_1",
+							"P_ospf_intfs",
+							"P_core_intfs"
+						],
+						"ipv4_address": {
+							"start": "11.3.2.2",
+							"step": "256"
+						},
+						"ipv4_mask": "255.255.255.0",
+						"ipv6_address": {
+							"start": "11:3::2:1:2",
+							"step": "4294967296"
+						},
+						"ipv6_prefix_length": "112",
+						"encapsulation": {
+							"dot1q": "${id}"
+						}
+					},
+					"${id=range(10,11)}": {
+						"id": "${id}",
+						"group": [
+							"P_PE1_core_1"
+						],
+						"ipv4_address": {
+							"start": "11.3.10.2",
+							"step": "1"
+						},
+						"ipv4_mask": "255.255.255.0",
+						"ipv6_address": {
+							"start": "11:3::10:1:2",
+							"step": "1"
+						},
+						"ipv6_prefix_length": "112",
+						"encapsulation": {
+							"dot1q": "${id}"
+						}
+					}
+				},
+				"group": [
+					"P_PE1_core_1",
+					"P_ospf_intfs",
+					"P_core_intfs"
+				]
+			},
+			"PE1_P_intf5.PE1": {
+				"state": "noshut",
+				"logical_name": "PE1_P_4",
+				"port_activity": "active",
+				"ipv4_address": "11.4.1.1",
+				"ipv4_mask": "255.255.255.0",
+				"ipv4_prefix_length": 24,
+				"ipv6_address": "11:4::1:1:1",
+				"ipv6_prefix_length": "112",
+				"mtu": 9200,
+				"group": [
+					"PE1_P_core_2",
+					"PE1_isis_intfs",
+					"PE1_core_intfs"
+				],
+				"vlans": {
+					"${id=range(1,10)}": {
+						"id": "${id}",
+						"group": [
+							"PE1_P_core_2",
+							"PE1_isis_intfs",
+							"PE1_core_intfs",
+							"PE1_P_int5_vlan_${id}"
+						],
+						"ipv4_address": {
+							"start": "11.4.2.1",
+							"step": "256"
+						},
+						"ipv4_mask": "255.255.255.0",
+						"ipv6_address": {
+							"start": "11:4::2:1:1",
+							"step": "4294967296"
+						},
+						"ipv6_prefix_length": "112",
+						"encapsulation": {
+							"dot1q": "${id}"
+						}
+					}
+				}
+			},
+			"PE1_P_intf5.P": {
+				"state": "noshut",
+				"logical_name": "P_PE1_4",
+				"port_activity": "active",
+				"ipv4_address": "11.4.1.2",
+				"ipv4_mask": "255.255.255.0",
+				"ipv4_prefix_length": 24,
+				"ipv6_address": "11:4::1:1:2",
+				"ipv6_prefix_length": "112",
+				"mtu": 9200,
+				"group": [
+					"P_PE1_core_2",
+					"P_isis_intfs",
+					"P_core_intfs"
+				],
+				"vlans": {
+					"${id=range(1,10)}": {
+						"id": "${id}",
+						"group": [
+							"P_PE1_core_2",
+							"P_isis_intfs",
+							"P_core_intfs",
+							"P_PE1_int5_vlan_${id}"
+						],
+						"ipv4_address": {
+							"start": "11.4.2.2",
+							"step": "256"
+						},
+						"ipv4_mask": "255.255.255.0",
+						"ipv6_address": {
+							"start": "11:4::2:1:2",
+							"step": "4294967296"
+						},
+						"ipv6_prefix_length": "112",
+						"encapsulation": {
+							"dot1q": "${id}"
+						}
+					}
+				}
+			},
+			"P_PE2_intf1.P": {
+				"ipv4_address": "111.1.1.2",
+				"ipv4_mask": "255.255.255.0",
+				"ipv4_prefix_length": 24,
+				"ipv6_address": "111:1::1:1:2",
+				"ipv6_prefix_length": 112,
+				"mtu": 9200,
+				"vlans": {
+					"${id=range(1,4)}": {
+						"id": "${id}",
+						"group": [
+							"P_PE2_core_1",
+							"P_ospf_intfs",
+							"P_core_intfs",
+							"P_PE2_int1_vlan_${id}"
+						],
+						"ipv4_address": {
+							"start": "111.1.2.2",
+							"step": "256"
+						},
+						"ipv4_mask": "255.255.255.0",
+						"ipv6_address": {
+							"start": "111:1::2:1:2",
+							"step": "4294967296"
+						},
+						"ipv6_prefix_length": "112",
+						"encapsulation": {
+							"dot1q": "${id}"
+						}
+					},
+					"${id=range(5,8)}": {
+						"id": "${id}",
+						"ipv4_address": {
+							"start": "111.1.5.2",
+							"step": "256"
+						},
+						"ipv4_mask": "255.255.255.0",
+						"ipv6_address": {
+							"start": "111:1::5:1:2",
+							"step": "4294967296"
+						},
+						"ipv6_prefix_length": "112",
+						"group": [
+							"P_PE2_core_1_vrf",
+							"P_PE2_core_1_vrf_${id}"
+						],
+						"encapsulation": {
+							"dot1q": "${id}"
+						},
+						"vrf": "${id}"
+					}
+				},
+				"group": [
+					"P_PE2_core_1",
+					"P_ospf_intfs",
+					"P_core_intfs"
+				]
+			},
+			"P_PE2_intf1.PE2": {
+				"ipv4_address": "111.1.1.1",
+				"ipv4_mask": "255.255.255.0",
+				"ipv4_prefix_length": 24,
+				"ipv6_address": "111:1::1:1:1",
+				"ipv6_prefix_length": 112,
+				"mtu": 9200,
+				"vlans": {
+					"${id=range(1,4)}": {
+						"id": "${id}",
+						"group": [
+							"PE2_P_core_1",
+							"PE2_ospf_intfs",
+							"PE2_core_intfs",
+							"PE2_P_int1_vlan_${id}"
+						],
+						"ipv4_address": {
+							"start": "111.1.2.1",
+							"step": "256"
+						},
+						"ipv4_mask": "255.255.255.0",
+						"ipv6_address": {
+							"start": "111:1::2:1:1",
+							"step": "4294967296"
+						},
+						"ipv6_prefix_length": "112",
+						"encapsulation": {
+							"dot1q": "${id}"
+						}
+					},
+					"${id=range(5,8)}": {
+						"id": "${id}",
+						"ipv4_address": {
+							"start": "111.1.5.1",
+							"step": "256"
+						},
+						"ipv4_mask": "255.255.255.0",
+						"ipv6_address": {
+							"start": "111:1::5:1:1",
+							"step": "4294967296"
+						},
+						"ipv6_prefix_length": "112",
+						"group": [
+							"PE2_P_core_1_vrf",
+							"PE2_P_core_1_vrf_${id}"
+						],
+						"encapsulation": {
+							"dot1q": "${id}"
+						},
+						"vrf": "${id}"
+					}
+				},
+				"group": [
+					"PE2_P_core_1",
+					"PE2_ospf_intfs",
+					"PE2_core_intfs"
+				]
+			},
+			"P_PE2_intf2.P": {
+				"ipv4_address": "111.2.1.2",
+				"ipv4_mask": "255.255.255.0",
+				"ipv4_prefix_length": 24,
+				"ipv6_address": "111:2::1:1:2",
+				"ipv6_prefix_length": 112,
+				"mtu": 9200,
+				"vlans": {
+					"${id=range(1,4)}": {
+						"id": "${id}",
+						"group": [
+							"P_PE2_core_2",
+							"P_isis_intfs",
+							"P_core_intfs",
+							"P_PE2_int2_vlan_${id}"
+						],
+						"ipv4_address": {
+							"start": "111.2.2.2",
+							"step": "256"
+						},
+						"ipv4_mask": "255.255.255.0",
+						"ipv6_address": {
+							"start": "111:2::2:1:2",
+							"step": "4294967296"
+						},
+						"ipv6_prefix_length": "112",
+						"encapsulation": {
+							"dot1q": "${id}"
+						}
+					},
+					"${id=range(5,8)}": {
+						"id": "${id}",
+						"ipv4_address": {
+							"start": "111.2.5.2",
+							"step": "256"
+						},
+						"ipv4_mask": "255.255.255.0",
+						"ipv6_address": {
+							"start": "111:2::5:1:2",
+							"step": "4294967296"
+						},
+						"ipv6_prefix_length": "112",
+						"group": [
+							"${id}"
+						],
+						"encapsulation": {
+							"dot1q": "${id}"
+						},
+						"vrf": "${id}"
+					}
+				},
+				"group": [
+					"P_PE2_core_2",
+					"P_isis_intfs",
+					"P_core_intfs"
+				]
+			},
+			"P_PE2_intf2.PE2": {
+				"ipv4_address": "111.2.1.1",
+				"ipv4_mask": "255.255.255.0",
+				"ipv4_prefix_length": 24,
+				"ipv6_address": "111:2::1:1:1",
+				"ipv6_prefix_length": 112,
+				"mtu": 9200,
+				"vlans": {
+					"${id=range(1,4)}": {
+						"id": "${id}",
+						"group": [
+							"PE2_P_core_2",
+							"PE2_isis_intfs",
+							"PE2_core_intfs",
+							"PE2_P_int2_vlan_${id}"
+						],
+						"ipv4_address": {
+							"start": "111.2.2.1",
+							"step": "256"
+						},
+						"ipv4_mask": "255.255.255.0",
+						"ipv6_address": {
+							"start": "111:2::2:1:1",
+							"step": "4294967296"
+						},
+						"ipv6_prefix_length": "112",
+						"encapsulation": {
+							"dot1q": "${id}"
+						}
+					},
+					"${id=range(5,8)}": {
+						"id": "${id}",
+						"ipv4_address": {
+							"start": "111.2.5.1",
+							"step": "256"
+						},
+						"ipv4_mask": "255.255.255.0",
+						"ipv6_address": {
+							"start": "111:2::5:1:1",
+							"step": "4294967296"
+						},
+						"ipv6_prefix_length": "112",
+						"group": [
+							"PE2_P_core_2_vrf"
+						],
+						"encapsulation": {
+							"dot1q": "${id}"
+						},
+						"vrf": "${id}"
+					}
+				},
+				"group": [
+					"PE2_P_core_2",
+					"PE2_isis_intfs",
+					"PE2_core_intfs"
+				]
+			},
+			"PE2_TGN_intf1.PE2": {
+				"ipv4_address": "116.1.1.1",
+				"ipv4_mask": "255.255.255.0",
+				"ipv4_prefix_length": 24,
+				"ipv6_address": "116:1::1:1:1",
+				"ipv6_prefix_length": 112,
+				"mtu": 9200,
+				"vlans": {
+					"${id=range(1,3)}": {
+						"id": "${id}",
+						"group": [
+							"PE2_access1_intfs",
+							"PE2_ospf_intfs",
+							"PE2_isis_intfs"
+						],
+						"ipv4_address": {
+							"start": "116.1.2.1",
+							"step": "256"
+						},
+						"ipv4_mask": "255.255.255.0",
+						"ipv6_address": {
+							"start": "116:1::2:1:1",
+							"step": "4294967296"
+						},
+						"ipv6_prefix_length": "112",
+						"encapsulation": {
+							"dot1q": "${id}"
+						}
+					},
+					"${id=range(5,8)}": {
+						"id": "${id}",
+						"ipv4_address": {
+							"start": "116.1.5.1",
+							"step": "256"
+						},
+						"ipv4_mask": "255.255.255.0",
+						"ipv6_address": {
+							"start": "116:1::5:1:1",
+							"step": "4294967296"
+						},
+						"ipv6_prefix_length": "112",
+						"group": [
+							"PE2_access1_vrf_intfs",
+							"PE2_access1_vrf_intfs_${id}"
+						],
+						"encapsulation": {
+							"dot1q": "${id}"
+						},
+						"vrf": "${id}"
+					},
+					"${id=range(10,19)}": {
+						"id": "${id}",
+						"group": [
+							"PE2_access1_intfs",
+							"PE2_ospf_intfs"
+						],
+						"ipv4_address": {
+							"start": "116.1.10.1",
+							"step": "256"
+						},
+						"ipv4_mask": "255.255.255.0",
+						"ipv6_address": {
+							"start": "116:1::10:1:1",
+							"step": "4294967296"
+						},
+						"ipv6_prefix_length": "112",
+						"encapsulation": {
+							"dot1q": "${id}"
+						}
+					}
+				},
+				"group": [
+					"PE2_access1_intfs",
+					"PE2_ospf_intfs",
+					"PE2_isis_intfs"
+				]
+			},
+			"PE2_TGN_intf1.TGN": {
+				"ipv4_address": "116.1.1.2",
+				"ipv4_mask": "255.255.255.0",
+				"ipv4_prefix_length": 24,
+				"ipv6_address": "116:1::1:1:2",
+				"ipv6_prefix_length": 112,
+				"mtu": 9200,
+				"group": [
+					"TGN_PE2_access1_intfs"
+				],
+				"vlans": {
+					"${id=range(1,3)}": {
+						"id": "${id}",
+						"group": [
+							"TGN_PE2_access1_intfs"
+						],
+						"ipv4_address": {
+							"start": "116.1.2.2",
+							"step": "256"
+						},
+						"ipv4_mask": "255.255.255.0",
+						"ipv6_address": {
+							"start": "116:1::2:1:2",
+							"step": "4294967296"
+						},
+						"ipv6_prefix_length": "112",
+						"encapsulation": {
+							"dot1q": "${id}"
+						}
+					},
+					"${id=range(5,8)}": {
+						"id": "${id}",
+						"ipv4_address": {
+							"start": "116.1.5.2",
+							"step": "256"
+						},
+						"ipv4_mask": "255.255.255.0",
+						"ipv6_address": {
+							"start": "116:1::5:1:2",
+							"step": "4294967296"
+						},
+						"ipv6_prefix_length": "112",
+						"group": [
+							"${id}"
+						],
+						"encapsulation": {
+							"dot1q": "${id}"
+						},
+						"vrf": "${id}"
+					}
+				}
+			},
+			"PE2_TGN_intf2.PE2": {
+				"ipv4_address": "116.2.1.1",
+				"ipv4_mask": "255.255.255.0",
+				"ipv4_prefix_length": 24,
+				"ipv6_address": "116:2::1:1:1",
+				"ipv6_prefix_length": 112,
+				"mtu": 9200,
+				"vlans": {
+					"${id=range(1,3)}": {
+						"id": "${id}",
+						"group": [
+							"PE2_access2_intfs",
+							"PE2_isis_intfs"
+						],
+						"ipv4_address": {
+							"start": "116.2.2.1",
+							"step": "256"
+						},
+						"ipv4_mask": "255.255.255.0",
+						"ipv6_address": {
+							"start": "116:2::2:1:1",
+							"step": "4294967296"
+						},
+						"ipv6_prefix_length": "112",
+						"encapsulation": {
+							"dot1q": "${id}"
+						}
+					},
+					"${id=range(10,15)}": {
+						"id": "${id}",
+						"group": [
+							"PE2_access2_intfs",
+							"PE2_ospf_intfs"
+						],
+						"ipv4_address": {
+							"start": "116.2.10.1",
+							"step": "256"
+						},
+						"ipv4_mask": "255.255.255.0",
+						"ipv6_address": {
+							"start": "116:2::10:1:1",
+							"step": "4294967296"
+						},
+						"ipv6_prefix_length": "112",
+						"encapsulation": {
+							"dot1q": "${id}"
+						}
+					},
+					"${id=range(15,19)}": {
+						"id": "${id}",
+						"group": [
+							"PE2_access2_intfs",
+							"PE2_isis_intfs"
+						],
+						"ipv4_address": {
+							"start": "116.2.15.1",
+							"step": "256"
+						},
+						"ipv4_mask": "255.255.255.0",
+						"ipv6_address": {
+							"start": "116:2::15:1:1",
+							"step": "4294967296"
+						},
+						"ipv6_prefix_length": "112",
+						"encapsulation": {
+							"dot1q": "${id}"
+						}
+					}
+				},
+				"group": [
+					"PE2_access2_intfs",
+					"PE2_isis_intfs"
+				]
+			},
+			"PE2_TGN_intf2.TGN": {
+				"ipv4_address": "116.2.1.2",
+				"ipv4_mask": "255.255.255.0",
+				"ipv4_prefix_length": 24,
+				"ipv6_address": "116:2::1:1:2",
+				"ipv6_prefix_length": 112,
+				"mtu": 9200,
+				"group": [
+					"TGN_PE2_access2_intfs"
+				],
+				"vlans": {
+					"${id=range(1,3)}": {
+						"id": "${id}",
+						"group": [
+							"TGN_PE2_access2_intfs"
+						],
+						"ipv4_address": {
+							"start": "116.2.2.2",
+							"step": "256"
+						},
+						"ipv4_mask": "255.255.255.0",
+						"ipv6_address": {
+							"start": "116:2::2:1:2",
+							"step": "4294967296"
+						},
+						"ipv6_prefix_length": "64",
+						"encapsulation": {
+							"dot1q": "${id}"
+						}
+					}
+				}
+			},
+			"P_TGN_intf1.P": {
+				"ipv4_address": "111.3.1.1",
+				"ipv4_mask": "255.255.255.0",
+				"ipv4_prefix_length": 24,
+				"ipv6_address": "111:3::1:1:1",
+				"ipv6_prefix_length": 112,
+				"mtu": 9200,
+				"group": [
+					"P_access1_intfs",
+					"P_ospf_intfs"
+				]
+			},
+			"P_TGN_intf1.TGN": {
+				"ipv4_address": "111.3.1.2",
+				"ipv4_mask": "255.255.255.0",
+				"ipv4_prefix_length": 24,
+				"ipv6_address": "111:3::1:1:2",
+				"ipv6_prefix_length": 112,
+				"mtu": 9200,
+				"group": [
+					"TGN_P_access1_intfs"
+				]
+			},
+			"P_TGN_intf2.P": {
+				"ipv4_address": "111.4.1.1",
+				"ipv4_mask": "255.255.255.0",
+				"ipv4_prefix_length": 24,
+				"ipv6_address": "111:4::1:1:1",
+				"ipv6_prefix_length": 112,
+				"mtu": 9200,
+				"group": [
+					"P_access2_intfs"
+				]
+			},
+			"P_TGN_intf2.TGN": {
+				"ipv4_address": "111.4.1.2",
+				"ipv4_mask": "255.255.255.0",
+				"ipv4_prefix_length": 24,
+				"ipv6_address": "111:4::1:1:2",
+				"ipv6_prefix_length": 112,
+				"mtu": 9200,
+				"group": [
+					"TGN_P_access2_intfs"
+				]
+			}
+		},
+		"feature_configuration": {
+			"etm": true,
+			"etm_port_list": [],
+			"mpls_ldp": {
+				"PE1": {
+					"globals": {
+						"router_id": "Loopback0",
+						"log_options": [
+							"neighbor"
+						],
+						"entropy_label": true
+					},
+					"interfaces": {
+						"${id=$group('PE1_P_core_1', 'PE1_P_core_2')}": {}
+					}
+				},
+				"P": {
+					"globals": {
+						"router_id": "Loopback0",
+						"log_options": [
+							"neighbor"
+						],
+						"entropy_label": true
+					},
+					"interfaces": {
+						"${id=$group('P_PE1_core_1', 'P_PE1_core_2', 'P_PE2_core_1', 'P_PE2_core_2', 'P_access1_intfs', 'P_access2_intfs')}": {}
+					}
+				},
+				"PE2": {
+					"globals": {
+						"router_id": "Loopback0",
+						"log_options": [
+							"neighbor"
+						],
+						"entropy_label": true
+					},
+					"interfaces": {
+						"${id=$group('PE2_P_core_1', 'PE2_P_core_2')}": {}
+					}
+				}
+			},
+			"ospfv2": {
+				"PE1": {
+					"process_name": {
+						"core": {
+							"router_id": "Loopback1",
+							"nsr": true,
+							"nsf_type": "cisco",
+							"area": {
+								"0.0.0.0": {
+									"peering": {
+										"P": {
+											"interface_list": "$group('PE1_P_core_1', 'PE1_loopback 1')"
+										},
+										"PE2": {
+											"interface_list": "$group('PE1_loopback 0')"
+										},
+										"TGN": {
+											"interface_list": "$group('PE1_access1_intfs','bvi_ospf_PE1')"
+										}
+									}
+								}
+							},
+							"vrfs": {
+								"${id=range(5,8)}": {
+									"router_id": "Loopback${id}",
+									"nsr": true,
+									"nsf_type": "cisco",
+									"area": {
+										"0.0.0.0": {
+											"peering": {
+												"P": {
+													"interface_list": "$group( 'PE1_P_core_1_vrf_${id}','PE1_loopback ${id}')"
+												},
+												"PE2": {
+													"interface_list": "$group('PE1_loopback ${id}')"
+												},
+												"TGN": {
+													"interface_list": "$group('PE1_access1_vrf_intfs_${id}')"
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"P": {
+					"process_name": {
+						"core": {
+							"router_id": "Loopback1",
+							"nsr": true,
+							"nsf_type": "cisco",
+							"area": {
+								"0.0.0.0": {
+									"peering": {
+										"PE1": {
+											"interface_list": "$group('P_PE1_core_1', 'P_loopback 1')"
+										},
+										"PE2": {
+											"interface_list": "$group('P_PE2_core_1', 'P_loopback 0')"
+										},
+										"TGN": {
+											"interface_list": "$group('PE2_access1_intfs')"
+										}
+									}
+								}
+							},
+							"vrfs": {
+								"${id=range(5,8)}": {
+									"router_id": "Loopback${id}",
+									"area": {
+										"0.0.0.0": {
+											"nsr": true,
+											"nsf_type": "cisco",
+											"peering": {
+												"PE1": {
+													"interface_list": "$group('P_PE1_core_1_vrf_${id}' , 'P_loopback ${id}')"
+												},
+												"PE2": {
+													"interface_list": "$group('P_PE2_core_1_vrf_${id}' ,'P_loopback ${id}')"
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"PE2": {
+					"process_name": {
+						"core": {
+							"router_id": "Loopback1",
+							"nsr": true,
+							"nsf_type": "cisco",
+							"area": {
+								"0.0.0.0": {
+									"peering": {
+										"P": {
+											"interface_list": "$group('PE2_P_core_1', 'PE2_loopback 1')"
+										},
+										"PE1": {
+											"interface_list": "$group('PE2_loopback 0')"
+										},
+										"TGN": {
+											"interface_list": "$group('PE2_access1_intfs')"
+										}
+									}
+								}
+							},
+							"vrfs": {
+								"${id=range(5,8)}": {
+									"router_id": "Loopback${id}",
+									"area": {
+										"0.0.0.0": {
+											"nsr": true,
+											"nsf_type": "cisco",
+											"peering": {
+												"P": {
+													"interface_list": "$group('PE2_P_core_1_vrf_${id}', 'PE2_loopback ${id}')"
+												},
+												"PE1": {
+													"interface_list": "$group('PE2_loopback ${id}')"
+												},
+												"TGN": {
+													"interface_list": "$group('PE2_access1_vrf_intfs_${id}')"
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+			"ospfv3": {
+				"PE1": {
+					"process_name": {
+						"core": {
+							"router_id": "Loopback1",
+							"nsr": true,
+							"graceful_restart": true,
+							"area": {
+								"0.0.0.0": {
+									"peering": {
+										"P": {
+											"interface_list": "$group('PE1_P_core_1', 'PE1_loopback 1')"
+										},
+										"PE2": {
+											"interface_list": "$group('PE1_loopback 0')"
+										},
+										"TGN": {
+											"interface_list": "$group('PE1_access1_intfs','bvi_ospf_PE1')"
+										}
+									}
+								}
+							},
+							"vrfs": {
+								"${id=range(5,8)}": {
+									"nsr": true,
+									"graceful_restart": true,
+									"area": {
+										"0.0.0.0": {
+											"peering": {
+												"P": {
+													"interface_list": "$group( 'PE1_P_core_1_vrf_${id}','PE1_loopback ${id}')"
+												},
+												"PE2": {
+													"interface_list": "$group('PE1_loopback ${id}')"
+												},
+												"TGN": {
+													"interface_list": "$group('PE1_access1_vrf_intfs_${id}')"
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"P": {
+					"process_name": {
+						"core": {
+							"router_id": "Loopback1",
+							"nsr": true,
+							"graceful_restart": false,
+							"area": {
+								"0.0.0.0": {
+									"peering": {
+										"PE1": {
+											"interface_list": "$group('P_PE1_core_1', 'P_loopback 1')"
+										},
+										"PE2": {
+											"interface_list": "$group('P_PE2_core_1', 'P_loopback 0')"
+										}
+									}
+								}
+							},
+							"vrfs": {
+								"${id=range(5,8)}": {
+									"area": {
+										"0.0.0.0": {
+											"nsr": true,
+											"graceful_restart": false,
+											"peering": {
+												"PE1": {
+													"interface_list": "$group('P_PE1_core_1_vrf_${id}' , 'P_loopback ${id}')"
+												},
+												"PE2": {
+													"interface_list": "$group('P_PE2_core_1_vrf_${id}' ,'P_loopback ${id}')"
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"PE2": {
+					"process_name": {
+						"core": {
+							"router_id": "Loopback1",
+							"nsr": true,
+							"graceful_restart": false,
+							"area": {
+								"0.0.0.0": {
+									"peering": {
+										"P": {
+											"interface_list": "$group('PE2_P_core_1', 'PE2_loopback 1')"
+										},
+										"PE1": {
+											"interface_list": "$group('PE2_loopback 0')"
+										},
+										"TGN": {
+											"interface_list": "$group('PE2_access1_intfs')"
+										}
+									}
+								}
+							},
+							"vrfs": {
+								"${id=range(5,8)}": {
+									"area": {
+										"0.0.0.0": {
+											"nsr": true,
+											"graceful_restart": false,
+											"peering": {
+												"P": {
+													"interface_list": "$group('PE2_P_core_1_vrf_${id}', 'PE2_loopback ${id}' )"
+												},
+												"PE1": {
+													"interface_list": "$group('PE2_loopback ${id}')"
+												},
+												"TGN": {
+													"interface_list": "$group('PE2_access1_vrf_intfs_${id}')"
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+			"isis": {
+				"PE1": {
+					"instance": [
+						{
+							"instance_name": "core",
+							"level": "L12",
+							"net_id": "49.0001.0000.0000.1001.00",
+							"nsr": true,
+							"nsf": "cisco",
+							"log_adj": true,
+							"afi": [
+								{
+									"af_name": "ipv4",
+									"saf_name": "unicast",
+									"metric_style": "wide"
+								},
+								{
+									"af_name": "ipv6",
+									"saf_name": "unicast",
+									"metric_style": "wide"
+								}
+							],
+							"peering": {
+								"P": [
+									{
+										"interface_list": "$group('PE1_P_core_2', 'PE1_loopback 2')",
+										"af_name": "ipv4",
+										"saf_name": "unicast"
+									},
+									{
+										"interface_list": "$group('PE1_P_core_2', 'PE1_loopback 2')",
+										"af_name": "ipv6",
+										"saf_name": "unicast"
+									}
+								],
+								"PE2": [
+									{
+										"interface_list": "$group('PE2_loopback 0')",
+										"af_name": "ipv4",
+										"saf_name": "unicast"
+									},
+									{
+										"interface_list": "$group('PE2_loopback 0')",
+										"af_name": "ipv6",
+										"saf_name": "unicast"
+									}
+								],
+								"TGN": [
+									{
+										"interface_list": "$group('PE1_access1_intfs', 'PE1_access2_intfs','bvi_isis_PE1')",
+										"af_name": "ipv4",
+										"saf_name": "unicast"
+									},
+									{
+										"interface_list": "$group('PE1_access1_intfs', 'PE1_access2_intfs','bvi_isis_PE1')",
+										"af_name": "ipv6",
+										"saf_name": "unicast"
+									}
+								]
+							}
+						}
+					]
+				},
+				"P": {
+					"instance": [
+						{
+							"instance_name": "core",
+							"level": "L12",
+							"net_id": "49.0001.0000.0000.2001.00",
+							"nsr": true,
+							"nsf": "cisco",
+							"log_adj": true,
+							"afi": [
+								{
+									"af_name": "ipv4",
+									"saf_name": "unicast",
+									"metric_style": "wide"
+								},
+								{
+									"af_name": "ipv6",
+									"saf_name": "unicast",
+									"metric_style": "wide"
+								}
+							],
+							"peering": {
+								"PE1": [
+									{
+										"interface_list": "$group('P_PE1_core_2', 'P_loopback 2')",
+										"af_name": "ipv4",
+										"saf_name": "unicast"
+									},
+									{
+										"interface_list": "$group('P_PE1_core_2', 'P_loopback 2')",
+										"af_name": "ipv6",
+										"saf_name": "unicast"
+									}
+								],
+								"PE2": [
+									{
+										"interface_list": "$group('P_PE2_core_2', 'P_loopback 0')",
+										"af_name": "ipv4",
+										"saf_name": "unicast"
+									},
+									{
+										"interface_list": "$group('P_PE2_core_2', 'P_loopback 0')",
+										"af_name": "ipv6",
+										"saf_name": "unicast"
+									}
+								]
+							}
+						}
+					]
+				},
+				"PE2": {
+					"instance": [
+						{
+							"instance_name": "core",
+							"level": "L12",
+							"net_id": "49.0001.0000.0000.3001.00",
+							"nsr": true,
+							"nsf": "cisco",
+							"log_adj": true,
+							"afi": [
+								{
+									"af_name": "ipv4",
+									"saf_name": "unicast",
+									"metric_style": "wide"
+								},
+								{
+									"af_name": "ipv6",
+									"saf_name": "unicast",
+									"metric_style": "wide"
+								}
+							],
+							"peering": {
+								"P": [
+									{
+										"interface_list": "$group('PE2_P_core_2', 'PE2_loopback 2')",
+										"af_name": "ipv4",
+										"saf_name": "unicast"
+									},
+									{
+										"interface_list": "$group('PE2_P_core_2', 'PE2_loopback 2')",
+										"af_name": "ipv6",
+										"saf_name": "unicast"
+									}
+								],
+								"PE1": [
+									{
+										"interface_list": "$group('PE2_loopback 0')",
+										"af_name": "ipv4",
+										"saf_name": "unicast"
+									},
+									{
+										"interface_list": "$group('PE2_loopback 0')",
+										"af_name": "ipv6",
+										"saf_name": "unicast"
+									}
+								],
+								"TGN": [
+									{
+										"interface_list": "$group('PE2_access1_intfs', 'PE2_access2_intfs')",
+										"af_name": "ipv4",
+										"saf_name": "unicast"
+									},
+									{
+										"interface_list": "$group('PE2_access1_intfs', 'PE2_access2_intfs')",
+										"af_name": "ipv6",
+										"saf_name": "unicast"
+									}
+								]
+							}
+						}
+					]
+				}
+			},
+			"ipstatic": {
+				"R1": {
+					"ipv4": {
+						"static_prefixes": [
+							"99.3.1.1",
+							"99.3.1.1",
+							"99.4.1.1",
+							"99.4.1.1"
+						],
+						"next_hops": [
+							"11.1.1.2",
+							"11.2.1.2",
+							"11.1.1.2",
+							"11.2.1.2"
+						],
+						"prefix_length": "32"
+					}
+				},
+				"R2": {
+					"ipv4": {
+						"static_prefixes": [
+							"99.2.1.1",
+							"99.2.1.1",
+							"99.3.1.1",
+							"99.3.1.1"
+						],
+						"next_hops": [
+							"111.1.1.2",
+							"111.2.1.2",
+							"111.1.1.2",
+							"111.2.1.2"
+						],
+						"prefix_length": "32"
+					}
+				},
+				"R3": {
+					"ipv4": {
+						"static_prefixes": [
+							"99.2.1.1",
+							"99.2.1.1",
+							"99.3.1.1",
+							"99.3.1.1"
+						],
+						"next_hops": [
+							"11.1.1.2",
+							"11.2.1.2",
+							"111.1.1.2",
+							"111.2.1.2"
+						],
+						"prefix_length": "32"
+					}
+				}
+			},
+			"acl": {
+				"aclnames": {
+					"DROP_LDP": [
+						{
+							"address_family": "ipv4",
+							"sequence_number": "10",
+							"action": "drop",
+							"source": {
+								"any_host": true
+							},
+							"source_port": {
+								"operator": "eq",
+								"port_number": "ldp any"
+							},
+							"protocol_name": "tcp"
+						},
+						{
+							"address_family": "ipv4",
+							"sequence_number": "20",
+							"action": "drop",
+							"source": {
+								"any_host": true
+							},
+							"source_port": {
+								"operator": "eq",
+								"port_number": "ldp any"
+							},
+							"protocol_name": "udp"
+						},
+						{
+							"address_family": "ipv4",
+							"sequence_number": "30",
+							"action": "drop",
+							"source": {
+								"any_host": true
+							},
+							"source_port": {
+								"operator": "any eq",
+								"port_number": "ldp"
+							},
+							"protocol_name": "tcp"
+						},
+						{
+							"address_family": "ipv4",
+							"sequence_number": "40",
+							"action": "drop",
+							"source": {
+								"any_host": true
+							},
+							"source_port": {
+								"operator": "any eq",
+								"port_number": "ldp"
+							},
+							"protocol_name": "udp"
+						},
+						{
+							"address_family": "ipv4",
+							"sequence_number": "50",
+							"action": "permit",
+							"source": {
+								"address": "ipv4 any",
+								"wildcard": "any"
+							}
+						}
+					]
+				},
+				"apply_intf": {
+					"PE1": {
+						"DROP_LDP": [
+							{
+								"address_family": "ipv4",
+								"interfaces": {
+									"${id=$group('PE1_P_core_1', 'PE1_P_core_2')}": {}
+								},
+								"direction": "ingress"
+							},
+							{
+								"address_family": "ipv4",
+								"interfaces": {
+									"${id=$group('PE1_P_core_1', 'PE1_P_core_2')}": {}
+								},
+								"direction": "egress"
+							}
+						]
+					},
+					"P": {
+						"DROP_LDP": [
+							{
+								"address_family": "ipv4",
+								"interfaces": {
+									"${id=$group('P_PE1_core_1', 'P_PE1_core_2', 'P_PE2_core_1', 'P_PE2_core_2')}": {}
+								},
+								"direction": "ingress"
+							},
+							{
+								"address_family": "ipv4",
+								"interfaces": {
+									"${id=$group('P_PE1_core_1', 'P_PE1_core_2', 'P_PE2_core_1', 'P_PE2_core_2')}": {}
+								},
+								"direction": "egress"
+							}
+						]
+					},
+					"PE2": {
+						"DROP_LDP": [
+							{
+								"address_family": "ipv4",
+								"interfaces": {
+									"${id=$group('PE2_P_core_1', 'PE2_P_core_2')}": {}
+								},
+								"direction": "ingress"
+							},
+							{
+								"address_family": "ipv4",
+								"interfaces": {
+									"${id=$group('PE2_P_core_1', 'PE2_P_core_2')}": {}
+								},
+								"direction": "egress"
+							}
+						]
+					}
+				}
+			},
+			"vrf": {
+				"PE1": {
+					"${id=range(5,8)}": {
+						"address_family_ipv4_unciast": {
+							"af": "ipv4",
+							"address_family_type": "unicast"
+						},
+						"address_family_ipv6_unicast": {
+							"af": "ipv6",
+							"address_family_type": "unicast"
+						}
+					}
+				},
+				"P": {
+					"${id=range(5,8)}": {
+						"address_family_ipv4_unciast": {
+							"af": "ipv4",
+							"address_family_type": "unicast"
+						},
+						"address_family_ipv6_unicast": {
+							"af": "ipv6",
+							"address_family_type": "unicast"
+						}
+					}
+				},
+				"PE2": {
+					"${id=range(5,8)}": {
+						"address_family_ipv4_unciast": {
+							"af": "ipv4",
+							"address_family_type": "unicast"
+						},
+						"address_family_ipv6_unicast": {
+							"af": "ipv6",
+							"address_family_type": "unicast"
+						}
+					}
+				}
+			},
+			"l2vpn": {
+				"PE1": {
+					"grp10": {
+						"bd10": {
+							"port_list": "$group('BVI10_l2_intf_PE1')",
+							"bvi_interface": "BVI10",
+							"bridge_group_name": "10",
+							"bridge_domain_name": "10"
+						}
+					},
+					"grp20": {
+						"bd20": {
+							"port_list": "$group('BVI20_l2_intf_PE1')",
+							"bvi_interface": "BVI20",
+							"bridge_group_name": "20",
+							"bridge_domain_name": "20"
+						}
+					},
+					"grp30": {
+						"bd30": {
+							"port_list": "$group('BVI30_l2_intf_PE1')",
+							"bvi_interface": "BVI30",
+							"bridge_group_name": "30",
+							"bridge_domain_name": "30"
+						}
+					},
+					"grp40": {
+						"bd40": {
+							"port_list": "$group('BVI40_l2_intf_PE1')",
+							"bvi_interface": "BVI40",
+							"bridge_group_name": "40",
+							"bridge_domain_name": "40"
+						}
+					}
+				}
+			},
+			"mpls_static": {
+				"PE1": {
+					"interfaces": {
+						"${id=$group('PE1_P_core_1', 'PE1_P_core_2','PE1_P_core_1_vrf','PE1_P_core_2_vrf')}": {}
+					},
+					"add_interfaces": {
+						"${id=$group('PE1_P_core_1')}": {}
+					},
+					"local_paths": [
+						{
+							"in_label": 993,
+							"label_mode": "per-prefix",
+							"prefix": "99.3.1.1",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"nexthop_af": "ipv4",
+							"nexthop_interface_name": "Bundle-Ether1",
+							"next_hop_address": "11.1.1.2",
+							"label_type": "out-label",
+							"out_label": "pop"
+						},
+						{
+							"in_label": 994,
+							"label_mode": "per-prefix",
+							"prefix": "99.4.1.1",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"nexthop_af": "ipv4",
+							"nexthop_interface_name": "Bundle-Ether1",
+							"next_hop_address": "11.1.1.2",
+							"label_type": "out-label",
+							"out_label": 994
+						},
+						{
+							"in_label": 995,
+							"label_mode": "per-prefix",
+							"prefix": "116.1.1.2",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"nexthop_af": "ipv4",
+							"nexthop_interface_name": "Bundle-Ether1",
+							"next_hop_address": "11.1.1.2",
+							"label_type": "out-label",
+							"out_label": 995
+						},
+						{
+							"vrf_name": "5",
+							"in_label": 135,
+							"label_mode": "per-vrf",
+							"path_id": 1,
+							"path_type": "pop-and-lookup"
+						}
+					],
+					"label_switch_paths": [
+						{
+							"lsp_name": "lsp_R2_loobpack",
+							"in_label": 993,
+							"label_mode": "per-prefix",
+							"prefix": "99.3.1.1",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "11.1.1.2",
+							"nexthop_af": "ipv4",
+							"nexthop_interface_name": "Bundle-Ether1",
+							"label_type": "out-label",
+							"out_label": "pop"
+						},
+						{
+							"lsp_name": "lsp_R3_resolve_loobpack",
+							"in_label": 994,
+							"label_mode": "per-prefix",
+							"prefix": "99.4.1.1",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "99.3.1.1",
+							"nexthop_af": "ipv4",
+							"nexthop_mode": "resolve",
+							"label_type": "out-label",
+							"out_label": "994",
+							"resolve_options": "True",
+							"disable_default_route": "True"
+						},
+						{
+							"lsp_name": "lsp_R3_prefix1",
+							"in_label": 995,
+							"label_mode": "per-prefix",
+							"prefix": "116.1.1.2",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "11.1.1.2",
+							"nexthop_af": "ipv4",
+							"nexthop_interface_name": "Bundle-Ether1",
+							"label_type": "out-label",
+							"out_label": "995"
+						},
+						{
+							"lsp_name": "lsp_R3_phy_prefix1",
+							"in_label": 889,
+							"label_mode": "per-prefix",
+							"prefix": "116.2.1.2",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "11.4.1.2",
+							"nexthop_af": "ipv4",
+							"nexthop_interface_name": "PE1_P_intf5.PE1",
+							"label_type": "out-label",
+							"out_label": "888"
+						},
+						{
+							"lsp_name": "lsp_R1_prefix1",
+							"in_label": 996,
+							"label_mode": "per-prefix",
+							"prefix": "16.1.1.2",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"nexthop_af": "ipv4",
+							"nexthop_interface_name": "Bundle-Ether3",
+							"next_hop_address": "16.1.1.2",
+							"label_type": "out-label",
+							"out_label": "pop"
+						},
+						{
+							"lsp_name": "lsp_R1_prefix_vrf6",
+							"vrf_name": "6",
+							"in_label": 226,
+							"label_mode": "per-vrf",
+							"path_id": 1,
+							"path_type": "pop-and-lookup"
+						}
+					],
+					"lsp_vrf_perprefix": [
+						{
+							"lsp_name": "lsp_R2_loobpack_vrf5",
+							"vrf_name": "5",
+							"in_label": 135,
+							"label_mode": "per-prefix",
+							"prefix": "113.5.1.1",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "pop-and-lookup",
+							"next_hop_address": "11.1.5.2",
+							"nexthop_af": "ipv4",
+							"label_type": "out-label",
+							"out_label": "pop"
+						},
+						{
+							"lsp_name": "lsp_R3_loobpack_vrf5",
+							"vrf_name": "5",
+							"in_label": 145,
+							"label_mode": "per-prefix",
+							"prefix": "114.5.1.1",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "pop-and-lookup",
+							"next_hop_address": "11.1.5.2",
+							"nexthop_af": "ipv4",
+							"label_type": "out-label",
+							"out_label": "145"
+						},
+						{
+							"lsp_name": "lsp_R3_prfix1_vrf5",
+							"vrf_name": "5",
+							"in_label": 245,
+							"label_mode": "per-prefix",
+							"prefix": "116.1.5.2",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "pop-and-lookup",
+							"next_hop_address": "11.1.5.2",
+							"nexthop_af": "ipv4",
+							"label_type": "out-label",
+							"out_label": "245"
+						}
+					],
+					"lsp_sub_intf": [
+						{
+							"lsp_name": "lsp_R3_prefix2",
+							"in_label": 997,
+							"label_mode": "per-prefix",
+							"prefix": "116.1.2.2",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "11.1.2.2",
+							"nexthop_af": "ipv4",
+							"nexthop_interface_name": "Bundle-Ether1.1",
+							"label_type": "out-label",
+							"out_label": "997"
+						},
+						{
+							"lsp_name": "lsp_R3_prefix3",
+							"in_label": 947,
+							"label_mode": "per-prefix",
+							"prefix": "116.1.3.2",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "11.1.3.2",
+							"nexthop_af": "ipv4",
+							"nexthop_interface_name": "Bundle-Ether1.2",
+							"label_type": "out-label",
+							"out_label": "947"
+						},
+						{
+							"lsp_name": "lsp_R3_phy_prefix2",
+							"in_label": 887,
+							"label_mode": "per-prefix",
+							"prefix": "116.2.2.2",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "11.4.2.2",
+							"nexthop_af": "ipv4",
+							"nexthop_interface_name": "$group('PE1_P_int5_vlan_1')",
+							"label_type": "out-label",
+							"out_label": "886"
+						},
+						{
+							"lsp_name": "lsp_R3_phy_prefix3",
+							"in_label": 847,
+							"label_mode": "per-prefix",
+							"prefix": "116.2.3.2",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "11.4.3.2",
+							"nexthop_af": "ipv4",
+							"nexthop_interface_name": "$group('PE1_P_int5_vlan_2')",
+							"label_type": "out-label",
+							"out_label": "846"
+						},
+						{
+							"lsp_name": "lsp_R1_prefix2",
+							"in_label": 998,
+							"label_mode": "per-prefix",
+							"prefix": "16.1.2.2",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"nexthop_af": "ipv4",
+							"nexthop_interface_name": "Bundle-Ether3.1",
+							"next_hop_address": "16.1.2.2",
+							"label_type": "out-label",
+							"out_label": "pop"
+						},
+						{
+							"lsp_name": "lsp_R1_prefix3",
+							"in_label": 948,
+							"label_mode": "per-prefix",
+							"prefix": "16.1.3.2",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"nexthop_af": "ipv4",
+							"nexthop_interface_name": "Bundle-Ether3.2",
+							"next_hop_address": "16.1.3.2",
+							"label_type": "out-label",
+							"out_label": "pop"
+						}
+					],
+					"label_switch_paths_ipv6": [
+						{
+							"lsp_name": "lsp_R2_v6_loobpack",
+							"in_label": 6993,
+							"label_mode": "per-prefix",
+							"prefix": "99:3:1::1",
+							"prefix_length": 128,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "11:1::1:1:2",
+							"nexthop_af": "ipv6",
+							"nexthop_interface_name": "Bundle-Ether1",
+							"label_type": "out-label",
+							"out_label": "pop"
+						},
+						{
+							"lsp_name": "lsp_R3_v6_loobpack",
+							"in_label": 6994,
+							"label_mode": "per-prefix",
+							"prefix": "99:4:1::1",
+							"prefix_length": 128,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "11:1::1:1:2",
+							"nexthop_af": "ipv6",
+							"nexthop_interface_name": "Bundle-Ether1",
+							"label_type": "out-label",
+							"out_label": "6994"
+						},
+						{
+							"lsp_name": "lsp_R3_v6_prefix1",
+							"in_label": 6995,
+							"label_mode": "per-prefix",
+							"prefix": "116:1::1:1:2",
+							"prefix_length": 128,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "11:1::1:1:2",
+							"nexthop_af": "ipv6",
+							"nexthop_interface_name": "Bundle-Ether1",
+							"label_type": "out-label",
+							"out_label": "6995"
+						},
+						{
+							"lsp_name": "lsp_R3_v6_prefix2",
+							"in_label": 6965,
+							"label_mode": "per-prefix",
+							"prefix": "116:1::2:1:2",
+							"prefix_length": 128,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "11:1::2:1:2",
+							"nexthop_af": "ipv6",
+							"nexthop_interface_name": "Bundle-Ether1.1",
+							"label_type": "out-label",
+							"out_label": "6965"
+						},
+						{
+							"lsp_name": "lsp_R3_v6_prefix3",
+							"in_label": 6945,
+							"label_mode": "per-prefix",
+							"prefix": "116:1::3:1:2",
+							"prefix_length": 128,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "11:1::3:1:2",
+							"nexthop_af": "ipv6",
+							"nexthop_interface_name": "Bundle-Ether1.2",
+							"label_type": "out-label",
+							"out_label": "6945"
+						},
+						{
+							"lsp_name": "lsp_R3_v6_phy_prefix1",
+							"in_label": 6885,
+							"label_mode": "per-prefix",
+							"prefix": "116:2::1:1:2",
+							"prefix_length": 128,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "11:4::1:1:2",
+							"nexthop_af": "ipv6",
+							"nexthop_interface_name": "PE1_P_intf5.PE1",
+							"label_type": "out-label",
+							"out_label": "6884"
+						},
+						{
+							"lsp_name": "lsp_R3_v6_phy_prefix2",
+							"in_label": 6865,
+							"label_mode": "per-prefix",
+							"prefix": "116:2::2:1:2",
+							"prefix_length": 128,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "11:4::2:1:2",
+							"nexthop_af": "ipv6",
+							"nexthop_interface_name": "$group('PE1_P_int5_vlan_1')",
+							"label_type": "out-label",
+							"out_label": "6864"
+						},
+						{
+							"lsp_name": "lsp_R3_v6_phy_prefix3",
+							"in_label": 6845,
+							"label_mode": "per-prefix",
+							"prefix": "116:2::3:1:2",
+							"prefix_length": 128,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "11:4::3:1:2",
+							"nexthop_af": "ipv6",
+							"nexthop_interface_name": "$group('PE1_P_int5_vlan_2')",
+							"label_type": "out-label",
+							"out_label": "6844"
+						},
+						{
+							"lsp_name": "lsp_R1_v6_phy_prefix1",
+							"in_label": 6887,
+							"label_mode": "per-prefix",
+							"prefix": "16:2::1:1:2",
+							"prefix_length": 128,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "16:2::1:1:2",
+							"nexthop_af": "ipv6",
+							"nexthop_interface_name": "PE1_TGN_intf2.PE1",
+							"label_type": "out-label",
+							"out_label": "pop"
+						},
+						{
+							"lsp_name": "lsp_R1_v6_phy_prefix2",
+							"in_label": 6867,
+							"label_mode": "per-prefix",
+							"prefix": "16:2::2:1:1",
+							"prefix_length": 128,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "16:2::2:1:1",
+							"nexthop_af": "ipv6",
+							"nexthop_interface_name": "$group('PE1_TGN_int2_vlan_1')",
+							"label_type": "out-label",
+							"out_label": "pop"
+						},
+						{
+							"lsp_name": "lsp_R1_v6_phy_prefix3",
+							"in_label": 6847,
+							"label_mode": "per-prefix",
+							"prefix": "16:2::3:1:1",
+							"prefix_length": 128,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "16:2::3:1:1",
+							"nexthop_af": "ipv6",
+							"nexthop_interface_name": "$group('PE1_TGN_int2_vlan_2')",
+							"label_type": "out-label",
+							"out_label": "pop"
+						}
+					],
+					"lsp_bvi": [
+						{
+							"lsp_name": "lsp_bvi_pop",
+							"in_label": 1111,
+							"label_mode": "per-prefix",
+							"prefix": "16.2.10.2",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "16.2.10.2 ",
+							"nexthop_af": "ipv4",
+							"nexthop_interface_name": "BVI20",
+							"label_type": "out-label",
+							"out_label": "pop"
+						},
+						{
+							"lsp_name": "bvi_pop_resolve_nh",
+							"in_label": 1114,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "16.2.10.3 ",
+							"nexthop_af": "ipv4",
+							"nexthop_mode": "resolve",
+							"label_type": "out-label",
+							"out_label": "pop"
+						},
+						{
+							"lsp_name": "bvi_pop_resolve_nh_prefix",
+							"in_label": 1117,
+							"label_mode": "per-prefix",
+							"prefix": "16.2.10.4",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"nexthop_af": "ipv4",
+							"nexthop_mode": "resolve",
+							"next_hop_address": "16.2.10.4",
+							"label_type": "out-label",
+							"out_label": "pop"
+						},
+						{
+							"lsp_name": "lsp_bvi_swap",
+							"in_label": 60900,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "16.1.10.7 ",
+							"nexthop_af": "ipv4",
+							"nexthop_interface_name": "BVI30",
+							"label_type": "out-label",
+							"out_label": "1100"
+						},
+						{
+							"lsp_name": "lsp_bvi_push",
+							"in_label": 1001,
+							"label_mode": "per-prefix",
+							"prefix": "16.1.10.8",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "16.1.10.8 ",
+							"nexthop_af": "ipv4",
+							"nexthop_interface_name": "BVI30",
+							"label_type": "out-label",
+							"out_label": "1002"
+						},
+						{
+							"lsp_name": "lsp_v6_bvi_pop",
+							"in_label": 1661,
+							"label_mode": "per-prefix",
+							"prefix": "16:2::10:1:2",
+							"prefix_length": 128,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "16:2::10:1:2 ",
+							"nexthop_af": "ipv6",
+							"nexthop_interface_name": "BVI20",
+							"label_type": "out-label",
+							"out_label": "pop"
+						},
+						{
+							"lsp_name": "v6_bvi_pop_resolve_nh",
+							"in_label": 1664,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "16:2::10:1:3 ",
+							"nexthop_af": "ipv6",
+							"nexthop_mode": "resolve",
+							"label_type": "out-label",
+							"out_label": "pop"
+						},
+						{
+							"lsp_name": "v6_bvi_pop_resolve_nh_prefix",
+							"in_label": 1667,
+							"label_mode": "per-prefix",
+							"prefix": "16:2::10:1:4",
+							"prefix_length": 128,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"nexthop_af": "ipv6",
+							"nexthop_mode": "resolve",
+							"next_hop_address": "16:2::10:1:4",
+							"label_type": "out-label",
+							"out_label": "pop"
+						},
+						{
+							"lsp_name": "lsp_R1_prefix_vrf7",
+							"vrf_name": "7",
+							"in_label": 326,
+							"label_mode": "per-vrf",
+							"path_id": 1,
+							"path_type": "pop-and-lookup"
+						}
+					],
+					"remove_lsp": [
+						{
+							"lsp_name": "lsp_R3_prefix1",
+							"in_label": 995,
+							"label_mode": "per-prefix",
+							"prefix": "116.1.1.2",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "11.1.1.2",
+							"nexthop_af": "ipv4",
+							"nexthop_interface_name": "Bundle-Ether1",
+							"label_type": "out-label",
+							"out_label": "995"
+						}
+					],
+					"add_lsp": [
+						{
+							"lsp_name": "lsp_R3_prefix1",
+							"in_label": 995,
+							"label_mode": "per-prefix",
+							"prefix": "116.1.1.2",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "11.1.1.2",
+							"nexthop_af": "ipv4",
+							"nexthop_interface_name": "Bundle-Ether1",
+							"label_type": "out-label",
+							"out_label": "995"
+						}
+					]
+				},
+				"P": {
+					"interfaces": {
+						"${id=$group('P_PE1_core_1', 'P_PE1_core_2', 'P_PE2_core_1', 'P_PE2_core_2','P_PE1_core_1_vrf', 'P_PE1_core_2_vrf', 'P_PE2_core_1_vrf')}": {}
+					},
+					"add_interfaces": {
+						"${id=$group('P_PE1_core_1','P_PE2_core_1')}": {}
+					},
+					"local_paths": [
+						{
+							"in_label": 994,
+							"label_mode": "per-prefix",
+							"prefix": "99.4.1.1",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"nexthop_af": "ipv4",
+							"nexthop_interface_name": "P_PE2_intf1.P",
+							"next_hop_address": "111.1.1.1",
+							"label_type": "out-label",
+							"out_label": "pop"
+						},
+						{
+							"in_label": 992,
+							"label_mode": "per-prefix",
+							"prefix": "99.2.1.1",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"nexthop_af": "ipv4",
+							"nexthop_interface_name": "Bundle-Ether1",
+							"next_hop_address": "11.1.1.1",
+							"label_type": "out-label",
+							"out_label": "pop"
+						},
+						{
+							"in_label": 995,
+							"label_mode": "per-prefix",
+							"prefix": "116.1.1.2",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"nexthop_af": "ipv4",
+							"nexthop_interface_name": "P_PE2_intf1.P",
+							"next_hop_address": "111.1.1.1",
+							"label_type": "out-label",
+							"out_label": "pop"
+						},
+						{
+							"in_label": 996,
+							"label_mode": "per-prefix",
+							"prefix": "16.1.1.2",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"nexthop_af": "ipv4",
+							"nexthop_interface_name": "Bundle-Ether1",
+							"next_hop_address": "11.1.1.1",
+							"label_type": "out-label",
+							"out_label": "pop"
+						},
+						{
+							"vrf_name": "5",
+							"in_label": 135,
+							"label_mode": "per-vrf",
+							"path_id": 1,
+							"path_type": "pop-and-lookup"
+						}
+					],
+					"label_switch_paths": [
+						{
+							"lsp_name": "lsp_R1_loobpack",
+							"in_label": 992,
+							"label_mode": "per-prefix",
+							"prefix": "99.2.1.1",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "11.1.1.1",
+							"nexthop_af": "ipv4",
+							"nexthop_interface_name": "Bundle-Ether1",
+							"label_type": "out-label",
+							"out_label": "pop"
+						},
+						{
+							"lsp_name": "lsp_R3_loobpack",
+							"in_label": 994,
+							"label_mode": "per-prefix",
+							"prefix": "99.4.1.1",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "111.1.1.1",
+							"nexthop_af": "ipv4",
+							"nexthop_interface_name": "P_PE2_intf1.P",
+							"label_type": "out-label",
+							"out_label": "pop"
+						},
+						{
+							"lsp_name": "lsp_R3_prefix1",
+							"in_label": 995,
+							"label_mode": "per-prefix",
+							"prefix": "116.1.1.2",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "111.1.1.1",
+							"nexthop_af": "ipv4",
+							"nexthop_interface_name": "P_PE2_intf1.P",
+							"label_type": "out-label",
+							"out_label": "pop"
+						},
+						{
+							"lsp_name": "lsp_R3_phy_prefix1",
+							"in_label": 888,
+							"label_mode": "per-prefix",
+							"prefix": "116.2.1.2",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "111.2.1.1",
+							"nexthop_af": "ipv4",
+							"nexthop_interface_name": "P_PE2_intf2.P",
+							"label_type": "out-label",
+							"out_label": "pop"
+						},
+						{
+							"lsp_name": "lsp_R1_prefix1",
+							"in_label": 996,
+							"label_mode": "per-prefix",
+							"prefix": "16.1.1.2",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"nexthop_af": "ipv4",
+							"nexthop_interface_name": "Bundle-Ether1",
+							"next_hop_address": "11.1.1.1",
+							"label_type": "out-label",
+							"out_label": "996"
+						},
+						{
+							"lsp_name": "lsp_R1_phy_prefix1",
+							"in_label": 884,
+							"label_mode": "per-prefix",
+							"prefix": "16.2.1.2",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "11.4.1.1",
+							"nexthop_af": "ipv4",
+							"nexthop_interface_name": "PE1_P_intf5.P",
+							"label_type": "out-label",
+							"out_label": "pop"
+						},
+						{
+							"lsp_name": "lsp_R2_prefix_vrf6",
+							"vrf_name": "6",
+							"in_label": 226,
+							"label_mode": "per-vrf",
+							"path_id": 1,
+							"path_type": "pop-and-lookup"
+						}
+					],
+					"lsp_vrf_perprefix": [
+						{
+							"lsp_name": "lsp_R1_loobpack_vrf5",
+							"vrf_name": "5",
+							"in_label": 125,
+							"label_mode": "per-prefix",
+							"prefix": "112.5.1.1",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "pop-and-lookup",
+							"next_hop_address": "11.1.5.1",
+							"nexthop_af": "ipv4",
+							"label_type": "out-label",
+							"out_label": "pop"
+						},
+						{
+							"lsp_name": "lsp_R3_loobpack_vrf5",
+							"vrf_name": "5",
+							"in_label": 145,
+							"label_mode": "per-prefix",
+							"prefix": "114.5.1.1",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "pop-and-lookup",
+							"next_hop_address": "111.1.5.1",
+							"nexthop_af": "ipv4",
+							"label_type": "out-label",
+							"out_label": "pop"
+						},
+						{
+							"lsp_name": "lsp_R3_prefix1_vrf5",
+							"vrf_name": "5",
+							"in_label": 245,
+							"label_mode": "per-prefix",
+							"prefix": "116.1.5.2",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "pop-and-lookup",
+							"next_hop_address": "111.1.5.1",
+							"nexthop_af": "ipv4",
+							"label_type": "out-label",
+							"out_label": "pop"
+						},
+						{
+							"lsp_name": "lsp_R1_prefix1_vrf5",
+							"vrf_name": "5",
+							"in_label": 225,
+							"label_mode": "per-prefix",
+							"prefix": "16.1.5.2",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "pop-and-lookup",
+							"nexthop_af": "ipv4",
+							"next_hop_address": "11.1.5.1",
+							"label_type": "out-label",
+							"out_label": "pop"
+						}
+					],
+					"lsp_sub_intf": [
+						{
+							"lsp_name": "lsp_R3_prefix2",
+							"in_label": 997,
+							"label_mode": "per-prefix",
+							"prefix": "116.1.2.2",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "111.1.2.1",
+							"nexthop_af": "ipv4",
+							"nexthop_interface_name": "$group('P_PE2_int1_vlan_1')",
+							"label_type": "out-label",
+							"out_label": "pop"
+						},
+						{
+							"lsp_name": "lsp_R3_prefix3",
+							"in_label": 947,
+							"label_mode": "per-prefix",
+							"prefix": "116.1.3.2",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "111.1.3.1",
+							"nexthop_af": "ipv4",
+							"nexthop_interface_name": "$group('P_PE2_int1_vlan_2')",
+							"label_type": "out-label",
+							"out_label": "pop"
+						},
+						{
+							"lsp_name": "lsp_R1_prefix2",
+							"in_label": 998,
+							"label_mode": "per-prefix",
+							"prefix": "16.1.2.2",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"nexthop_af": "ipv4",
+							"nexthop_interface_name": "Bundle-Ether1.1",
+							"next_hop_address": "11.1.2.1",
+							"label_type": "out-label",
+							"out_label": "998"
+						},
+						{
+							"lsp_name": "lsp_R1_prefix3",
+							"in_label": 948,
+							"label_mode": "per-prefix",
+							"prefix": "16.1.3.2",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"nexthop_af": "ipv4",
+							"nexthop_interface_name": "Bundle-Ether1.2",
+							"next_hop_address": "11.1.3.1",
+							"label_type": "out-label",
+							"out_label": "948"
+						},
+						{
+							"lsp_name": "lsp_R1_phy_prefix2",
+							"in_label": 882,
+							"label_mode": "per-prefix",
+							"prefix": "16.2.2.1",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "11.4.2.1",
+							"nexthop_af": "ipv4",
+							"nexthop_interface_name": "$group('P_PE1_int5_vlan_1')",
+							"label_type": "out-label",
+							"out_label": "pop"
+						},
+						{
+							"lsp_name": "lsp_R1_phy_prefix3",
+							"in_label": 842,
+							"label_mode": "per-prefix",
+							"prefix": "16.2.3.1",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "11.4.3.1",
+							"nexthop_af": "ipv4",
+							"nexthop_interface_name": "$group('P_PE1_int5_vlan_2')",
+							"label_type": "out-label",
+							"out_label": "pop"
+						},
+						{
+							"lsp_name": "lsp_R3_phy_prefix2",
+							"in_label": 886,
+							"label_mode": "per-prefix",
+							"prefix": "116.2.2.2",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "111.2.2.1",
+							"nexthop_af": "ipv4",
+							"nexthop_interface_name": "$group('P_PE2_int2_vlan_1')",
+							"label_type": "out-label",
+							"out_label": "pop"
+						},
+						{
+							"lsp_name": "lsp_R3_phy_prefix3",
+							"in_label": 846,
+							"label_mode": "per-prefix",
+							"prefix": "116.2.3.2",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "111.2.3.1",
+							"nexthop_af": "ipv4",
+							"nexthop_interface_name": "$group('P_PE2_int2_vlan_2')",
+							"label_type": "out-label",
+							"out_label": "pop"
+						}
+					],
+					"label_switch_paths_ipv6": [
+						{
+							"lsp_name": "lsp_R1_v6_loobpack",
+							"in_label": 6992,
+							"label_mode": "per-prefix",
+							"prefix": "99:2:1::1",
+							"prefix_length": 128,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "11:1::1:1:1",
+							"nexthop_af": "ipv6",
+							"nexthop_interface_name": "Bundle-Ether1",
+							"label_type": "out-label",
+							"out_label": "pop"
+						},
+						{
+							"lsp_name": "lsp_R3_v6_loobpack",
+							"in_label": 6994,
+							"label_mode": "per-prefix",
+							"prefix": "99:4:1::1",
+							"prefix_length": 128,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "111:1::1:1:1",
+							"nexthop_af": "ipv6",
+							"nexthop_interface_name": "P_PE2_intf1.P",
+							"label_type": "out-label",
+							"out_label": "pop"
+						},
+						{
+							"lsp_name": "lsp_R3_v6_prefix1",
+							"in_label": 6995,
+							"label_mode": "per-prefix",
+							"prefix": "116:1::1:1:2",
+							"prefix_length": 128,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "111:1::1:1:1",
+							"nexthop_af": "ipv6",
+							"nexthop_interface_name": "P_PE2_intf1.P",
+							"label_type": "out-label",
+							"out_label": "pop"
+						},
+						{
+							"lsp_name": "lsp_R3_v6_prefix2",
+							"in_label": 6965,
+							"label_mode": "per-prefix",
+							"prefix": "116:1::2:1:2",
+							"prefix_length": 128,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "111:1::2:1:1",
+							"nexthop_af": "ipv6",
+							"nexthop_interface_name": "$group('P_PE2_int1_vlan_1')",
+							"label_type": "out-label",
+							"out_label": "pop"
+						},
+						{
+							"lsp_name": "lsp_R3_v6_prefix3",
+							"in_label": 6945,
+							"label_mode": "per-prefix",
+							"prefix": "116:1::3:1:2",
+							"prefix_length": 128,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "111:1::3:1:1",
+							"nexthop_af": "ipv6",
+							"nexthop_interface_name": "$group('P_PE2_int1_vlan_2')",
+							"label_type": "out-label",
+							"out_label": "pop"
+						},
+						{
+							"lsp_name": "lsp_R1_v6_prefix1",
+							"in_label": 6996,
+							"label_mode": "per-prefix",
+							"prefix": "16:1::1:1:2",
+							"prefix_length": 128,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"nexthop_af": "ipv6",
+							"nexthop_interface_name": "Bundle-Ether1",
+							"next_hop_address": "11:1::1:1:1",
+							"label_type": "out-label",
+							"out_label": "pop"
+						},
+						{
+							"lsp_name": "lsp_R1_v6_prefix2",
+							"in_label": 6966,
+							"label_mode": "per-prefix",
+							"prefix": "16:1::2:1:2",
+							"prefix_length": 128,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"nexthop_af": "ipv6",
+							"nexthop_interface_name": "Bundle-Ether1.1",
+							"next_hop_address": "11:1::2:1:1",
+							"label_type": "out-label",
+							"out_label": "pop"
+						},
+						{
+							"lsp_name": "lsp_R1_v6_prefix3",
+							"in_label": 6946,
+							"label_mode": "per-prefix",
+							"prefix": "16:1::3:1:2",
+							"prefix_length": 128,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"nexthop_af": "ipv6",
+							"nexthop_interface_name": "Bundle-Ether1.2",
+							"next_hop_address": "11:1::3:1:1",
+							"label_type": "out-label",
+							"out_label": "pop"
+						},
+						{
+							"lsp_name": "lsp_R3_v6_phy_prefix1",
+							"in_label": 6884,
+							"label_mode": "per-prefix",
+							"prefix": "116:2::1:1:2",
+							"prefix_length": 128,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "111:2::1:1:1",
+							"nexthop_af": "ipv6",
+							"nexthop_interface_name": "P_PE2_intf2.P",
+							"label_type": "out-label",
+							"out_label": "pop"
+						},
+						{
+							"lsp_name": "lsp_R3_v6_phy_prefix2",
+							"in_label": 6864,
+							"label_mode": "per-prefix",
+							"prefix": "116:2::2:1:2",
+							"prefix_length": 128,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "111:2::2:1:1",
+							"nexthop_af": "ipv6",
+							"nexthop_interface_name": "$group('P_PE2_int2_vlan_1')",
+							"label_type": "out-label",
+							"out_label": "pop"
+						},
+						{
+							"lsp_name": "lsp_R3_v6_phy_prefix3",
+							"in_label": 6844,
+							"label_mode": "per-prefix",
+							"prefix": "116:2::3:1:2",
+							"prefix_length": 128,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "111:2::3:1:1",
+							"nexthop_af": "ipv6",
+							"nexthop_interface_name": "$group('P_PE2_int2_vlan_2')",
+							"label_type": "out-label",
+							"out_label": "pop"
+						},
+						{
+							"lsp_name": "lsp_R1_v6_phy_prefix1",
+							"in_label": 6888,
+							"label_mode": "per-prefix",
+							"prefix": "16:2::1:1:2",
+							"prefix_length": 128,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "11:4::1:1:1",
+							"nexthop_af": "ipv6",
+							"nexthop_interface_name": "PE1_P_intf5.P",
+							"label_type": "out-label",
+							"out_label": "6887"
+						},
+						{
+							"lsp_name": "lsp_R1_v6_phy_prefix2",
+							"in_label": 6868,
+							"label_mode": "per-prefix",
+							"prefix": "16:2::2:1:1",
+							"prefix_length": 128,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "11:4::2:1:1",
+							"nexthop_af": "ipv6",
+							"nexthop_interface_name": "$group('P_PE1_int5_vlan_1')",
+							"label_type": "out-label",
+							"out_label": "6867"
+						},
+						{
+							"lsp_name": "lsp_R1_v6_phy_prefix3",
+							"in_label": 6848,
+							"label_mode": "per-prefix",
+							"prefix": "16:2::3:1:1",
+							"prefix_length": 128,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "11:4::3:1:1",
+							"nexthop_af": "ipv6",
+							"nexthop_interface_name": "$group('P_PE1_int5_vlan_2')",
+							"label_type": "out-label",
+							"out_label": "6847"
+						}
+					],
+					"lsp_bvi": [
+						{
+							"lsp_name": "lsp_bvi_pop",
+							"in_label": 1112,
+							"label_mode": "per-prefix",
+							"prefix": "16.2.10.2",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "11.4.1.1",
+							"nexthop_af": "ipv4",
+							"nexthop_interface_name": "PE1_P_intf5.P",
+							"label_type": "out-label",
+							"out_label": "1111"
+						},
+						{
+							"lsp_name": "bvi_pop_resolve_nh",
+							"in_label": 1115,
+							"label_mode": "per-prefix",
+							"prefix": "16.2.10.3",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "11.2.2.1",
+							"nexthop_af": "ipv4",
+							"nexthop_interface_name": "Bundle-Ether2.1",
+							"label_type": "out-label",
+							"out_label": "1114"
+						},
+						{
+							"lsp_name": "bvi_pop_resolve_nh_prefix",
+							"in_label": 1118,
+							"label_mode": "per-prefix",
+							"prefix": "16.2.10.4",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"nexthop_af": "ipv4",
+							"nexthop_mode": "resolve",
+							"next_hop_address": "16.2.10.4",
+							"label_type": "out-label",
+							"out_label": "1117"
+						},
+						{
+							"lsp_name": "lsp_bvi_swap",
+							"in_label": 60901,
+							"label_mode": "per-prefix",
+							"prefix": "16.1.10.7",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"nexthop_af": "ipv4",
+							"nexthop_mode": "resolve",
+							"next_hop_address": "16.1.10.7",
+							"label_type": "out-label",
+							"out_label": "60900"
+						},
+						{
+							"lsp_name": "lsp_v6_bvi_pop",
+							"in_label": 1662,
+							"label_mode": "per-prefix",
+							"prefix": "16:2::10:1:2",
+							"prefix_length": 128,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "11:2::3:1:1 ",
+							"nexthop_af": "ipv6",
+							"nexthop_interface_name": "Bundle-Ether2.2",
+							"label_type": "out-label",
+							"out_label": "1661"
+						},
+						{
+							"lsp_name": "v6_bvi_pop_resolve_nh",
+							"in_label": 1665,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"nexthop_af": "ipv6",
+							"next_hop_address": "11:4::2:1:1",
+							"nexthop_interface_name": "$group('P_PE1_int5_vlan_1')",
+							"label_type": "out-label",
+							"out_label": "1664"
+						},
+						{
+							"lsp_name": "v6_bvi_pop_resolve_nh_prefix",
+							"in_label": 1668,
+							"label_mode": "per-prefix",
+							"prefix": "16:2::10:1:4",
+							"prefix_length": 128,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"nexthop_af": "ipv6",
+							"nexthop_mode": "resolve",
+							"next_hop_address": "16:2::10:1:4",
+							"label_type": "out-label",
+							"out_label": "1667"
+						},
+						{
+							"lsp_name": "lsp_R2_prefix_vrf7",
+							"vrf_name": "7",
+							"in_label": 326,
+							"label_mode": "per-vrf",
+							"path_id": 1,
+							"path_type": "pop-and-lookup"
+						}
+					],
+					"remove_lsp": [
+						{
+							"lsp_name": "lsp_R3_prefix1",
+							"in_label": 995,
+							"label_mode": "per-prefix",
+							"prefix": "116.1.1.2",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "111.1.1.1",
+							"nexthop_af": "ipv4",
+							"nexthop_interface_name": "P_PE2_intf1.P",
+							"label_type": "out-label",
+							"out_label": "pop"
+						},
+						{
+							"lsp_name": "lsp_R1_prefix1",
+							"in_label": 996,
+							"label_mode": "per-prefix",
+							"prefix": "16.1.1.2",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"nexthop_af": "ipv4",
+							"nexthop_interface_name": "Bundle-Ether1",
+							"next_hop_address": "11.1.1.1",
+							"label_type": "out-label",
+							"out_label": "pop"
+						}
+					],
+					"add_lsp": [
+						{
+							"lsp_name": "lsp_R3_prefix1",
+							"in_label": 995,
+							"label_mode": "per-prefix",
+							"prefix": "116.1.1.2",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "111.1.1.1",
+							"nexthop_af": "ipv4",
+							"nexthop_interface_name": "P_PE2_intf1.P",
+							"label_type": "out-label",
+							"out_label": "pop"
+						},
+						{
+							"lsp_name": "lsp_R1_prefix1",
+							"in_label": 996,
+							"label_mode": "per-prefix",
+							"prefix": "16.1.1.2",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"nexthop_af": "ipv4",
+							"nexthop_interface_name": "Bundle-Ether1",
+							"next_hop_address": "11.1.1.1",
+							"label_type": "out-label",
+							"out_label": "pop"
+						}
+					]
+				},
+				"PE2": {
+					"interfaces": {
+						"${id=$group('PE2_P_core_1', 'PE2_P_core_2','PE2_P_core_1_vrf', 'PE2_P_core_2_vrf')}": {}
+					},
+					"add_interfaces": {
+						"${id=$group('PE2_P_core_1')}": {}
+					},
+					"local_paths": [
+						{
+							"in_label": 992,
+							"label_mode": "per-prefix",
+							"prefix": "99.2.1.1",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"nexthop_interface_name": "P_PE2_intf1.PE2",
+							"nexthop_af": "ipv4",
+							"next_hop_address": "111.1.1.2",
+							"label_type": "out-label",
+							"out_label": 992
+						},
+						{
+							"in_label": 993,
+							"label_mode": "per-prefix",
+							"prefix": "99.3.1.1",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"nexthop_af": "ipv4",
+							"nexthop_interface_name": "P_PE2_intf1.PE2",
+							"next_hop_address": "111.1.1.2",
+							"label_type": "out-label",
+							"out_label": "pop"
+						},
+						{
+							"in_label": 996,
+							"label_mode": "per-prefix",
+							"prefix": "16.1.1.2",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"nexthop_af": "ipv4",
+							"nexthop_interface_name": "P_PE2_intf1.PE2",
+							"next_hop_address": "111.1.1.2",
+							"label_type": "out-label",
+							"out_label": 996
+						},
+						{
+							"vrf_name": "5",
+							"in_label": 135,
+							"label_mode": "per-vrf",
+							"path_id": 1,
+							"path_type": "pop-and-lookup"
+						}
+					],
+					"label_switch_paths": [
+						{
+							"lsp_name": "lsp_R2_loobpack",
+							"in_label": 993,
+							"label_mode": "per-prefix",
+							"prefix": "99.3.1.1",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "111.1.1.2",
+							"nexthop_af": "ipv4",
+							"nexthop_interface_name": "P_PE2_intf1.PE2",
+							"label_type": "out-label",
+							"out_label": "pop"
+						},
+						{
+							"lsp_name": "lsp_R1_loobpack",
+							"in_label": 992,
+							"label_mode": "per-prefix",
+							"prefix": "99.2.1.1",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "111.1.1.2",
+							"nexthop_af": "ipv4",
+							"nexthop_interface_name": "P_PE2_intf1.PE2",
+							"label_type": "out-label",
+							"out_label": "992"
+						},
+						{
+							"lsp_name": "lsp_R1_prefix1",
+							"in_label": 996,
+							"label_mode": "per-prefix",
+							"prefix": "16.1.1.2",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "111.1.1.2",
+							"nexthop_af": "ipv4",
+							"nexthop_interface_name": "P_PE2_intf1.PE2",
+							"label_type": "out-label",
+							"out_label": "996"
+						},
+						{
+							"lsp_name": "lsp_R1_phy_prefix1",
+							"in_label": 885,
+							"label_mode": "per-prefix",
+							"prefix": "16.2.1.2",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "111.2.1.2",
+							"nexthop_af": "ipv4",
+							"nexthop_interface_name": "P_PE2_intf2.PE2",
+							"label_type": "out-label",
+							"out_label": "884"
+						},
+						{
+							"lsp_name": "lsp_R3_prefix_vrf6",
+							"vrf_name": "6",
+							"in_label": 226,
+							"label_mode": "per-vrf",
+							"path_id": 1,
+							"path_type": "pop-and-lookup"
+						}
+					],
+					"lsp_vrf_perprefix": [
+						{
+							"lsp_name": "lsp_R2_loobpack_vrf5",
+							"vrf_name": "5",
+							"in_label": 135,
+							"label_mode": "per-prefix",
+							"prefix": "113.5.1.1",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "pop-and-lookup",
+							"next_hop_address": "111.1.5.2",
+							"nexthop_af": "ipv4",
+							"label_type": "out-label",
+							"out_label": "pop"
+						},
+						{
+							"lsp_name": "lsp_R1_loobpack_vrf5",
+							"vrf_name": "5",
+							"in_label": 125,
+							"label_mode": "per-prefix",
+							"prefix": "112.5.1.1",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "pop-and-lookup",
+							"next_hop_address": "111.1.5.2",
+							"nexthop_af": "ipv4",
+							"label_type": "out-label",
+							"out_label": "125"
+						},
+						{
+							"lsp_name": "lsp_R1_prefix1_vrf5",
+							"vrf_name": "5",
+							"in_label": 225,
+							"label_mode": "per-prefix",
+							"prefix": "16.1.5.2",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "pop-and-lookup",
+							"next_hop_address": "111.1.5.2",
+							"nexthop_af": "ipv4",
+							"label_type": "out-label",
+							"out_label": "225"
+						}
+					],
+					"lsp_sub_intf": [
+						{
+							"lsp_name": "lsp_R1_phy_prefix2",
+							"in_label": 883,
+							"label_mode": "per-prefix",
+							"prefix": "16.2.2.1",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "111.2.2.2",
+							"nexthop_af": "ipv4",
+							"nexthop_interface_name": "$group('PE2_P_int2_vlan_1')",
+							"label_type": "out-label",
+							"out_label": "882"
+						},
+						{
+							"lsp_name": "lsp_R1_phy_prefix3",
+							"in_label": 843,
+							"label_mode": "per-prefix",
+							"prefix": "16.2.3.1",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "111.2.3.2",
+							"nexthop_af": "ipv4",
+							"nexthop_interface_name": "$group('PE2_P_int2_vlan_2')",
+							"label_type": "out-label",
+							"out_label": "842"
+						},
+						{
+							"lsp_name": "lsp_R1_prefix2",
+							"in_label": 998,
+							"label_mode": "per-prefix",
+							"prefix": "16.1.2.2",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "111.1.2.2",
+							"nexthop_af": "ipv4",
+							"nexthop_interface_name": "$group('PE2_P_int1_vlan_1')",
+							"label_type": "out-label",
+							"out_label": "998"
+						},
+						{
+							"lsp_name": "lsp_R1_prefix3",
+							"in_label": 948,
+							"label_mode": "per-prefix",
+							"prefix": "16.1.3.2",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "111.1.3.2",
+							"nexthop_af": "ipv4",
+							"nexthop_interface_name": "$group('PE2_P_int1_vlan_2')",
+							"label_type": "out-label",
+							"out_label": "948"
+						}
+					],
+					"label_switch_paths_ipv6": [
+						{
+							"lsp_name": "lsp_R2_v6_loobpack",
+							"in_label": 6993,
+							"label_mode": "per-prefix",
+							"prefix": "99:3:1::1",
+							"prefix_length": 128,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "111:1::1:1:2",
+							"nexthop_af": "ipv6",
+							"nexthop_interface_name": "P_PE2_intf1.PE2",
+							"label_type": "out-label",
+							"out_label": "pop"
+						},
+						{
+							"lsp_name": "lsp_R1_v6_loobpack",
+							"in_label": 6992,
+							"label_mode": "per-prefix",
+							"prefix": "99:2:1::1",
+							"prefix_length": 128,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "111:1::1:1:2",
+							"nexthop_af": "ipv6",
+							"nexthop_interface_name": "P_PE2_intf1.PE2",
+							"label_type": "out-label",
+							"out_label": "6992"
+						},
+						{
+							"lsp_name": "lsp_R1_v6_prefix1",
+							"in_label": 6996,
+							"label_mode": "per-prefix",
+							"prefix": "16:1::1:1:2",
+							"prefix_length": 128,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "111:1::1:1:2",
+							"nexthop_af": "ipv6",
+							"nexthop_interface_name": "P_PE2_intf1.PE2",
+							"label_type": "out-label",
+							"out_label": "6996"
+						},
+						{
+							"lsp_name": "lsp_R1_v6_prefix2",
+							"in_label": 6969,
+							"label_mode": "per-prefix",
+							"prefix": "16:1::2:1:2",
+							"prefix_length": 128,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "111:1::2:1:2",
+							"nexthop_af": "ipv6",
+							"nexthop_interface_name": "$group('PE2_P_int1_vlan_1')",
+							"label_type": "out-label",
+							"out_label": "6966"
+						},
+						{
+							"lsp_name": "lsp_R1_v6_prefix3",
+							"in_label": 6949,
+							"label_mode": "per-prefix",
+							"prefix": "16:1::3:1:2",
+							"prefix_length": 128,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "111:1::3:1:2",
+							"nexthop_af": "ipv6",
+							"nexthop_interface_name": "$group('PE2_P_int1_vlan_2')",
+							"label_type": "out-label",
+							"out_label": "6946"
+						},
+						{
+							"lsp_name": "lsp_R1_v6_phy_prefix1",
+							"in_label": 6889,
+							"label_mode": "per-prefix",
+							"prefix": "16:2::1:1:2",
+							"prefix_length": 128,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "111:2::1:1:2",
+							"nexthop_af": "ipv6",
+							"nexthop_interface_name": "P_PE2_intf2.PE2",
+							"label_type": "out-label",
+							"out_label": "6888"
+						},
+						{
+							"lsp_name": "lsp_R1_v6_phy_prefix2",
+							"in_label": 6869,
+							"label_mode": "per-prefix",
+							"prefix": "16:2::2:1:1",
+							"prefix_length": 128,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "111:2::2:1:2",
+							"nexthop_af": "ipv6",
+							"nexthop_interface_name": "$group('PE2_P_int2_vlan_1')",
+							"label_type": "out-label",
+							"out_label": "6868"
+						},
+						{
+							"lsp_name": "lsp_R1_v6_phy_prefix3",
+							"in_label": 6849,
+							"label_mode": "per-prefix",
+							"prefix": "16:2::3:1:1",
+							"prefix_length": 128,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "111:2::3:1:2",
+							"nexthop_af": "ipv6",
+							"nexthop_interface_name": "$group('PE2_P_int2_vlan_2')",
+							"label_type": "out-label",
+							"out_label": "6848"
+						}
+					],
+					"lsp_bvi": [
+						{
+							"lsp_name": "lsp_bvi_pop",
+							"in_label": 1113,
+							"label_mode": "per-prefix",
+							"prefix": "16.2.10.2",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "111.2.1.2",
+							"nexthop_af": "ipv4",
+							"nexthop_interface_name": "P_PE2_intf2.PE2",
+							"label_type": "out-label",
+							"out_label": "1112"
+						},
+						{
+							"lsp_name": "bvi_pop_resolve_nh",
+							"in_label": 1116,
+							"label_mode": "per-prefix",
+							"prefix": "16.2.10.3",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "111.2.2.2",
+							"nexthop_af": "ipv4",
+							"nexthop_interface_name": "$group('PE2_P_int2_vlan_1')",
+							"label_type": "out-label",
+							"out_label": "1115"
+						},
+						{
+							"lsp_name": "bvi_pop_resolve_nh_prefix",
+							"in_label": 1119,
+							"label_mode": "per-prefix",
+							"prefix": "16.2.10.4",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "111.2.3.2",
+							"nexthop_af": "ipv4",
+							"nexthop_interface_name": "$group('PE2_P_int2_vlan_2')",
+							"label_type": "out-label",
+							"out_label": "1118"
+						},
+						{
+							"lsp_name": "lsp_R3_prefix_vrf7",
+							"vrf_name": "7",
+							"in_label": 326,
+							"label_mode": "per-vrf",
+							"path_id": 1,
+							"path_type": "pop-and-lookup"
+						}
+					],
+					"remove_lsp": [
+						{
+							"lsp_name": "lsp_R1_prefix1",
+							"in_label": 996,
+							"label_mode": "per-prefix",
+							"prefix": "16.1.1.2",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "111.1.1.2",
+							"nexthop_af": "ipv4",
+							"nexthop_interface_name": "P_PE2_intf1.PE2",
+							"label_type": "out-label",
+							"out_label": "996"
+						}
+					],
+					"add_lsp": [
+						{
+							"lsp_name": "lsp_R1_prefix1",
+							"in_label": 996,
+							"label_mode": "per-prefix",
+							"prefix": "16.1.1.2",
+							"prefix_length": 32,
+							"path_id": 1,
+							"path_type": "cross-connect",
+							"next_hop_address": "111.1.1.2",
+							"nexthop_af": "ipv4",
+							"nexthop_interface_name": "P_PE2_intf1.PE2",
+							"label_type": "out-label",
+							"out_label": "996"
+						}
+					]
+				}
+			}
+		},
+		"debug_configuration": {
+			"Collector": {
+				"Methods": {
+					"TFTP": {
+						"path": "/auto/tftp-bng-regression/talagars/debug/"
+					}
+				},
+				"AP": {
+					"MplsStaticApBase": {
+						"Commands": [
+							"show logging",
+							"show netio rates",
+							"show netio drops",
+							"show netio client",
+							"show running-config",
+							"show drops all location all",
+							"show drops-all location all",
+							"show captured packets traps all location all",
+							"show controllers fia trace all location all",
+							"show controllers fia trace brcm-error location all",
+							"show spp trace platform common all location all",
+							"show controllers npu stats traps-all instance all location all",
+							"show controllers npu voq-usage interface all instance all location all",
+							"show controllers npu diag counters graphical instance all location all",
+							"show interfaces accounting",
+							"show tech-support cef",
+							"show tech-support ofa",
+							"show tech-support platform-fwd",
+							"show tech-support cef platform",
+							"show tech-support spp",
+							"show tech-support mpls ldp",
+							"show tech-support mpls lsd",
+							"show tech-support tcp nsr",
+							"show tech-support lpts",
+							"show tech-support routing isis",
+							"show tech-support routing ospf",
+							"show tech-support rib",
+							"show tech-support bundle",
+							"show tech-support pfi",
+							"show tech-support qos platform",
+							"show tech-support qos pi",
+							"show tech-support mpls static",
+							"show tech-support interface",
+							"show tech-support ethernet interfaces",
+							"show tech-support optics",
+							"show tech-support fabric",
+							"show tech-support aib",
+							"show tech-support arp",
+							"show tech-support grid",
+							"show tech-support fpd",
+							"show tech-support spio",
+							"show tech-support spi",
+							"show tech-support bmc",
+							"show tech-support np",
+							"show tech-support ctrace",
+							"show tech-support ltrace",
+							"show tech-support os",
+							"show tech-support ipv6 nd",
+							"admin show tech-support shelf_mgr",
+							"show context",
+							"show platform"
+						],
+						"TestClasses": {
+							"TestMplsStatic": {
+								"Commands": [
+									"show mpls forwarding debug detail",
+									"show cef vrf all ipv4",
+									"show cef vrf all ipv6",
+									"show mpls forwarding debug detail"
+								]
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
